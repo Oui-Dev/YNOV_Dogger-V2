@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-primary {
+    @apply min-w-fit flex justify-center rounded-md border border-transparent py-2 px-5 text-sm font-medium bg-dogger-orange-400 text-white shadow-sm hover:bg-dogger-orange-500;
+
+}
+
+.btn-secondary {
+    @apply bg-black text-white rounded font-bold px-4 py-2 hover:bg-dogger-orange-500;
+    font-size: 16px;
+}
+
+.btn-warning {
+    @apply min-w-fit flex justify-center rounded-md border border-transparent py-2 px-5 text-sm font-medium text-white shadow-sm bg-red-500 hover:bg-red-700;
+    font-size: 16px;
+}
+
+.btn-generic {
+    @apply bg-white border border-gray-600 text-gray-600 rounded font-bold px-4 py-2 hover:text-gray-500;
+    font-size: 16px;
+}
+
+form {
+    * {
+        @apply focus:outline-none;
+    }
+
+    input,
+    textarea,
+    input[type='password'],
+    input[type='number'],
+    input[type='email'],
+    input[type='phone'],
+    input[type='text'],
+    input[type='url'],
+    select {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-dogger-orange-500 focus:ring-dogger-orange-500 text-sm border py-3 px-3;
+    }
+
+    label {
+        @apply block mb-2 mt-3 text-sm font-medium text-gray-900;
+    }
+
+    .form-error-div {
+        label {
+            @apply text-red-500;
+        }
+
+        input,
+        textarea,
+        select {
+            @apply border-red-500;
+        }
+    }
+
+    .form-error-field {
+        @apply text-red-500 text-sm font-normal mt-1;
+    }
+}

@@ -7,7 +7,7 @@ const authNavigation = [
     {name: "Dashboard", routeName: "dashboard.index"},
     {name: "Projects", routeName: "dashboard.projects.list"},
     {name: "Errors", routeName: "dashboard.errors.list"},
-    {name: "Profile", routeName: "dashboard.profil"}
+    {name: "Profile", routeName: "dashboard.profil.show"}
 ];
 
 const isReduced = ref(true);
