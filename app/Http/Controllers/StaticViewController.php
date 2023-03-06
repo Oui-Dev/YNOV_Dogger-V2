@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 
-class HomeController extends Controller
+class StaticViewController extends Controller
 {
     public function homepage() {
         return Inertia::render('Homepage');
