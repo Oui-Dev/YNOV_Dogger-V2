@@ -9,17 +9,18 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      *
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function create()
     {
-        return view('register');
+        return Inertia::render('Auth/Register');
     }
 
     /**
