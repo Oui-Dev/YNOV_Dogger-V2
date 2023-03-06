@@ -28,7 +28,7 @@ Route::group([
     'as' => 'dashboard.',
     'middleware' => ['auth', 'verified', 'role:user|admin'],
 ], function () {
-    Route::get('/', [DashboardController::class, 'create'])->name('index');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     // Projects
     Route::group([
@@ -56,10 +56,10 @@ Route::group([
     // Users
     Route::group([
         'prefix' => 'profil',
-        'as' => 'user.',
+        'as' => 'profil.',
         'controller' => UserController::class
     ], function () {
-        Route::get('/', 'profil')->name('profil');
+        Route::get('/', 'profil')->name('show');
         Route::put('/edit', 'update')->name('edit');
         Route::delete('/delete', 'delete')->name('delete');
     });
