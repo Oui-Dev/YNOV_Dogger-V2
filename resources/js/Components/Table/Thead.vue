@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-    <thead class="bg-dogger-orange-400 text-gray-900">
+    <thead class="bg-dogger-orange-400 text-white">
         <tr>
             <th v-for="(title, index) in tableTitles" :key="index" scope="col" class="custom_th">
                 {{title}}
