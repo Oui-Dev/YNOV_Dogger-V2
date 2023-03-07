@@ -4,7 +4,7 @@ import { router, useForm } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
-import { PencilSquareIcon, TrashIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { PencilSquareIcon, TrashIcon, KeyIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 
 defineProps({
     projects: {
@@ -27,6 +27,15 @@ const getProjectDate = (project) => {
     let date = project.created_at;
     date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+}
+const getProjectKey = (project) => {
+    const resumeLength = 25;
+    return project.key.length > resumeLength
+        ? project.key.substring(0, resumeLength) + '...'
+        : project.key;
+}
+const copyProjectKey = (project) => {
+    navigator.clipboard.writeText(project.key);
 }
 
 function changeModalState(modal, state = true, project = null) {
@@ -66,9 +75,10 @@ function deleteProject() {
         </div>
         <Table
             :tableTitles="['Project', 'Created At', 'Project Key']"
-            :tableKeys="['name', {function: getProjectDate}, 'key']"
+            :tableKeys="['name', {function: getProjectDate}, {function: getProjectKey}]"
             :data="projects"
             :actions="[
+                { type: 'function', function: copyProjectKey, icon: KeyIcon, iconText: 'Copy to clipboard project key' },
                 { type: 'function', function: (e) => changeModalState('edit', true, e), icon: PencilSquareIcon, iconText: 'Edit project' },
                 { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete project', hoverColor: 'hover:text-red-600' },
             ]"
