@@ -24,10 +24,10 @@ const isDisabled = (key) => {
         <div class="flex flex-wrap gap-1 p-1 justify-end">
             <template v-for="(link, key) in paginator.links" :key="`link-${key}`">
                 <Link
-                class="px-4 py-3 text-sm leading-4 border rounded" :href="link.url" v-html="link.label"
+                class="px-4 py-3 text-sm leading-4 border rounded" :href="link.url ?? ''" v-html="link.label"
                 :class="{
-                    'bg-dogger-orange-300 text-white': link.active,
-                    'hover:text-dogger-orange-400': !link.active,
+                    'bg-dogger-orange-400 text-white': link.active,
+                    'hover:text-dogger-orange-400 bg-gray-50': !link.active,
                     'hidden md:block' : isDisplayed(key, link),
                     'disabled': isDisabled(key)
                 }" />
