@@ -38,7 +38,7 @@ const submitForm = () => {
                     <input v-model="form.password" id="password" type="password" />
                     <div v-if="form.errors.password" class="form-error-field">{{ form.errors.password }}</div>
                 </div>
-                <button class="btn-primary mt-6 w-full" type="submit">Login</button>
+                <button class="btn primary mt-6 w-full" type="submit">Login</button>
             </form>
         </div>
     </div>

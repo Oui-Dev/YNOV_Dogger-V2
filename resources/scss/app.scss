@@ -2,24 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn-primary {
-    @apply min-w-fit flex justify-center rounded-md border border-transparent py-2 px-5 text-sm font-medium bg-dogger-orange-400 text-white shadow-sm hover:bg-dogger-orange-500;
-
-}
-
-.btn-secondary {
-    @apply bg-black text-white rounded font-bold px-4 py-2 hover:bg-dogger-orange-500;
+.btn {
+    @apply rounded font-semibold px-5 py-2;
     font-size: 16px;
-}
 
-.btn-warning {
-    @apply min-w-fit flex justify-center rounded-md border border-transparent py-2 px-5 text-sm font-medium text-white shadow-sm bg-red-500 hover:bg-red-700;
-    font-size: 16px;
-}
-
-.btn-generic {
-    @apply bg-white border border-gray-600 text-gray-600 rounded font-bold px-4 py-2 hover:text-gray-500;
-    font-size: 16px;
+    &.primary {
+        @apply bg-dogger-orange-400 text-white hover:bg-dogger-orange-500;
+    }
+    &.warning {
+        @apply bg-red-500 text-white hover:bg-red-600;
+    }
+    &.generic {
+        @apply bg-white border border-gray-300 text-gray-900 hover:bg-gray-50;
+    }
 }
 
 form {

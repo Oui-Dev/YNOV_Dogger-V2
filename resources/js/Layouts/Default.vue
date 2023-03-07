@@ -31,7 +31,7 @@ const setToast = () => {
             <NavBar />
 
             <!-- Page Content -->
-            <main class="pb-12">
+            <main class="p-4 md:p-6 lg:p-8 max-w-6xl mx-auto">
                 <slot />
             </main>
         </div>

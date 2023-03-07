@@ -62,7 +62,7 @@ const submitForm = () => {
                             form.errors.password_confirmation }}</div>
                     </div>
                 </div>
-                <button class="btn-primary mt-6 w-full" type="submit">Register</button>
+                <button class="btn primary mt-6 w-full" type="submit">Register</button>
             </form>
         </div>
     </div>
