@@ -28,7 +28,7 @@ const openSideBar = () => isReduced.value = !isReduced.value;
                 <template v-if="isAuth">
                     <Link v-for="item in authNavigation" :key="item.name"
                         :href="route(item.routeName)"
-                        :class="{'active': route().current() === item.routeName}"
+                        :class="{'active-link': route().current() === item.routeName}"
                     >
                         {{ item.name }}
                     </Link>
@@ -60,7 +60,10 @@ const openSideBar = () => isReduced.value = !isReduced.value;
                 <div class="overflow-hidden shadow-lg rounded-b-lg border-t border-gray-300">
                     <div class="relative grid gap-2 px-5 py-5 text-sm md:text-base">
                         <template v-if="isAuth">
-                            <Link v-for="item in authNavigation" :key="item.name" :href="route(item.routeName)">
+                            <Link v-for="item in authNavigation" :key="item.name"
+                                :href="route(item.routeName)"
+                                :class="{'active-link': route().current() === item.routeName}"
+                            >
                                 {{ item.name }}
                             </Link>
                         </template>
@@ -102,10 +105,10 @@ header {
     
         .menu-side {
             @apply flex items-center gap-6 justify-center;
+        }
 
-            .active {
-                @apply text-dogger-orange-400;
-            }
+        .active-link {
+            @apply text-dogger-orange-400;
         }
     
         .button-side {
