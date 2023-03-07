@@ -4,11 +4,13 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
+	resolve: {
+		alias: {
+            ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue.es"),
+			'@': path.resolve('./resources/js'),
+		},
+	},
     plugins: [
-        laravel({
-            input: ['resources/scss/app.scss', 'resources/js/app.js'],
-            refresh: true,
-        }),
         vue({
             template: {
                 transformAssetUrls: {
@@ -17,11 +19,12 @@ export default defineConfig({
                 },
             },
         }),
+        laravel({
+            input: [
+                'resources/scss/app.scss',
+                'resources/js/app.js'
+            ],
+            refresh: true,
+        }),
     ],
-	resolve: {
-		alias: {
-            ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue.es"),
-			'@': path.resolve('./resources/js'),
-		},
-	},
 });
