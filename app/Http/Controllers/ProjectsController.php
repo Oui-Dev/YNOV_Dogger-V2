@@ -33,9 +33,9 @@ class ProjectsController extends Controller
         ]);
 
         Project::create([
-            'user_id' => $user->id,
             'name' => $data['name'],
             'key' => bin2hex(random_bytes(16)).'/'.Str::slug($data['name']),
+            'organization_id' => $user->organization->id,
         ]);
 
         return redirect()->route('dashboard.projects.list')->with('toast', [

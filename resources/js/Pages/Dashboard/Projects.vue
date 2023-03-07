@@ -23,6 +23,12 @@ const modalState = ref({
 });
 const modalProjectId = ref(null);
 
+const getProjectDate = (project) => {
+    let date = project.created_at;
+    date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+}
+
 function changeModalState(modal, state = true, project = null) {
     modalState.value[modal] = state;
     if(project) {
@@ -55,12 +61,12 @@ function deleteProject() {
 
 <template>
     <DefaultLayout>
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end">
             <button class="btn primary" @click="changeModalState('create', true)">Create Project</button>
         </div>
         <Table
             :tableTitles="['Project', 'Created At', 'Project Key']"
-            :tableKeys="['name', 'created_at', 'key']"
+            :tableKeys="['name', {function: getProjectDate}, 'key']"
             :data="projects"
             :actions="[
                 { type: 'function', function: (e) => changeModalState('edit', true, e), icon: PencilSquareIcon, iconText: 'Edit project' },
