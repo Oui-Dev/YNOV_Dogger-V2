@@ -16,13 +16,12 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('name');
             $table->dropColumn('email_verified_at');
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('firstname')->after('id');
+            $table->string('lastname')->after('firstname');
         });
 
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->timestamps();
         });
@@ -50,6 +49,10 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('errors');
+
+        Schema::dropIfExists('projects');
+
+        Schema::dropIfExists('users');
     }
 };
