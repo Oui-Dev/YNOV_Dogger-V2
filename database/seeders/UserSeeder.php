@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,11 +16,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $organization = Organization::first();
+
         $admin = User::create([
             'firstname'=>'Utilisateur',
             'lastname'=>'Admin',
             'email'=>'admin@dogger.com',
             'password'=>Hash::make('Pass1234'),
+            'organization_id' => $organization->id
         ]);
 
         $user = User::create([
@@ -27,6 +31,7 @@ class UserSeeder extends Seeder
             'lastname'=>'User',
             'email'=>'user@dogger.com',
             'password'=>Hash::make('Pass1234'),
+            'organization_id' => $organization->id
         ]);
 
         $admin->assignRole('admin');
@@ -34,5 +39,8 @@ class UserSeeder extends Seeder
 
         $admin->save();
         $user->save();
+
+        $organization->owner_id = $admin->id;
+        $organization->save();
     }
 }

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         if(config('app.env') === 'local') {
             $this->call([
+                OrganizationSeeder::class,
                 UserSeeder::class,
             ]);
         }

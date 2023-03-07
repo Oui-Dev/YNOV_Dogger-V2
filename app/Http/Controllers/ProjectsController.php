@@ -14,7 +14,7 @@ class ProjectsController extends Controller
 
     public function list() {
         $user = auth()->user();
-        $projects = Project::where('user_id', $user->id)
+        $projects = $user->organization->projects()
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

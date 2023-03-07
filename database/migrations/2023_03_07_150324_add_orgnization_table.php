@@ -16,15 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('owner_id')
                 ->unique()
+                ->nullable()
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->timestamps();
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('organization_id')
-                ->nullable()
-                ->constrained();
+            $table->foreignId('organization_id')->constrained();
         });
 
         Schema::table('projects', function (Blueprint $table) {

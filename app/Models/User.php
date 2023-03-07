@@ -23,6 +23,7 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
+        'organization_id'
     ];
 
     /**
@@ -35,8 +36,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function projects() {
-        return $this->hasMany(Project::class);
+    public function organization(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function ownedOrganization(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(Organization::class, 'owner_id');
     }
     
     public function setPasswordAttribute($password)

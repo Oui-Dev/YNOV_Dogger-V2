@@ -26,7 +26,8 @@ class Error extends Model
         'viewed_at',
     ];
 
-    public function project() {
+    public function project(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
         return $this->belongsTo(Project::class);
     }
 }

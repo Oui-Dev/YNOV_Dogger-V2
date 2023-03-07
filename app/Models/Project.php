@@ -15,16 +15,18 @@ class Project extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
         'name',
         'key',
+        'organization_id',
     ];
 
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function organization(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(Organization::class);
     }
 
-    public function errors() {
+    public function errors(): \Illuminate\Database\Eloquent\Relations\hasMany
+    {
         return $this->hasMany(Error::class);
     }
 }
