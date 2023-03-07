@@ -6,6 +6,7 @@ use App\Mail\ErrorAssignEmail;
 use App\Traits\ErrorTrait;
 use App\Models\Error;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class ErrorsController extends Controller
@@ -14,15 +15,23 @@ class ErrorsController extends Controller
 
     public function list() {
         $user = auth()->user();
-        $errors = Error::whereHas('project', function($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })
-            ->orderBy('created_at', 'desc')
-            ->with('project')
-            ->get();
+        $projectFor = Request::get('project');
+        if($projectFor === 'All') $projectFor = null;
+
+        if($projectFor) {
+            $errors = Error::where('project_id', $projectFor);
+        } else {
+            $errors = Error::whereHas('project', function($query) use ($user) {
+                $query->where('organization_id', $user->organization->id);
+            });
+        }
+
+        $errors = $errors->orderBy('created_at', 'desc')->with('project')->paginate(10);
+        $projects = $user->organization->projects()->get();
 
         return Inertia::render("Dashboard/Errors", [
-            'errors' => $errors
+            'errors' => $errors,
+            'projects' => $projects,
         ]);
     }
 

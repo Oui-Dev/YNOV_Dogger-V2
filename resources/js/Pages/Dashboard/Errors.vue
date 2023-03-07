@@ -1,14 +1,82 @@
 <script setup>
+import { ref, watch } from 'vue';
+import { router } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/Default.vue';
+import Table from '@/Components/Table/Table.vue';
+import { DocumentMagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 
+const selectedProject = ref(new URLSearchParams(new URL(window.location.href).search).get('project') ?? 'All');
+
+const props = defineProps({
+    errors: {
+        type: Object,
+        required: true,
+    },
+    projects: {
+        type: Array,
+        required: false,
+        default: [],
+    },
+});
+
+watch(selectedProject, (id) => {
+    router.get(route('dashboard.errors.list', { project: id }));
+});
+
+const getProjectName = (error) => error.project.name;
+
+const getErrorDate = (error) => {
+    let date = error.timestamp;
+    date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+}
+
+const getErrorStatus = (error) => {
+    switch(error.status) {
+        case 0:
+            return 'New';
+        case 1:
+            return 'In progress';
+        case 2:
+            return 'Resolved';
+        default:
+            return 'Unknown';
+    }
+}
+
+function showDetails(error) {
+    console.log(error);
+}
 </script>
 
 <template>
     <DefaultLayout>
-        <div class="flex flex-col items-center justify-center min-h-screen py-12">
-            <h1 class="text-4xl font-bold text-gray-900">
-                Errors
-            </h1>
+        <div id="select">
+            <select v-model="selectedProject">
+                <option value="All">All</option>
+                <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.name }}</option>
+            </select>
         </div>
+        <Table
+            :tableTitles="['Project', 'Date', 'Code', 'Status']"
+            :tableKeys="[{function: getProjectName}, {function: getErrorDate}, 'code', {function: getErrorStatus}]"
+            :data="errors"
+            :actions="[
+                { type: 'function', function: showDetails, icon: DocumentMagnifyingGlassIcon, iconText: 'Show error details' },
+            ]"
+            :pagination=true
+        />
+
+        <!-- TODO : Add details slide over -->
     </DefaultLayout>
 </template>
+
+<style lang="scss" scoped>
+div#select {
+    @apply capitalize py-1 px-2 border border-gray-300 rounded-lg shadow-sm w-fit bg-gray-50;
+
+    select {
+        @apply bg-transparent;
+    }
+}
+</style>
