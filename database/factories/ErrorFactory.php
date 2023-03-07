@@ -18,7 +18,7 @@ class ErrorFactory extends Factory
     public function definition()
     {
         return [
-            'project_id' => Project::first()->id,
+            'project_id' => Project::inRandomOrder()->first()->id,
             'code' => fake()->numberBetween(100, 527),
             'message' => fake()->sentence(),
             'path' => fake()->url(),
