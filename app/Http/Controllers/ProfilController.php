@@ -7,7 +7,7 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class ProfilController extends Controller
 {
     public function profil() {
         return Inertia::render("Dashboard/Profil");

@@ -4,7 +4,7 @@ use App\Http\Controllers\StaticViewController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorsController;
 use App\Http\Controllers\ProjectsController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,7 +57,7 @@ Route::group([
     Route::group([
         'prefix' => 'profil',
         'as' => 'profil.',
-        'controller' => UserController::class
+        'controller' => ProfilController::class
     ], function () {
         Route::get('/', 'profil')->name('show');
         Route::put('/edit', 'update')->name('edit');
