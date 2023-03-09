@@ -49,8 +49,7 @@ Route::group([
         'controller' => ErrorsController::class
     ], function () {
         Route::get('/', 'list')->name('list');
-        Route::put('/status/{error}', 'updateStatus')->name('update.status');
-        Route::put('/assign/{error}', 'assignTo')->name('update.assigned');
+        Route::put('/update/{error}', 'update')->name('update');
     });
 
     // Users

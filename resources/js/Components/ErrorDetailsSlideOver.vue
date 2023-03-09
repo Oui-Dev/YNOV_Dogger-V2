@@ -34,8 +34,8 @@ const openedError = ref([]);
 const isAdmin = computed(() => usePage().props.auth.user.roles.includes('admin'));
 const currentUserId = computed(() => usePage().props.auth.user.id);
 const form = useForm({
-    assigned_to: props.error?.assigned_to,
-    status: props.error?.status,
+    assigned_to: null,
+    status: 1,
 });
 
 watch(() => props, (data) => {
@@ -64,7 +64,10 @@ const formatedDate = (date) => {
 }
 
 function submitForm() {
-
+    form.put(route('dashboard.errors.update', props.error.id), {
+        preserveScroll: true,
+        onBefore: () => close(),
+    });
 }
 </script>
 

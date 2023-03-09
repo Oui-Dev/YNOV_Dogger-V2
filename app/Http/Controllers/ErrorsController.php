@@ -61,37 +61,21 @@ class ErrorsController extends Controller
         ]);
     }
 
-    public function updateStatus(Error $error) {
-        $this->hasAccess($error->project->user_id);
+    public function update(Error $error) {
+        $this->hasAccessToProject($error->project);
 
         $data = request()->validate([
             'status' => ['required', 'integer', 'min:0', 'max:3'],
+            'assigned_to' => ['nullable','integer'],
         ]);
 
         $error->status = $data['status'];
+        $error->assigned_to = $data['assigned_to'];
         $error->save();
 
-        return redirect()->route('dashboard.errors.list')->with('toast', [
+        return redirect()->back()->with('toast', [
             'type' => 'success',
-            'message' => 'Error status updated !',
-        ]);
-    }
-
-    public function assignTo(Error $error) {
-        $this->hasAccess($error->project->user_id);
-
-        $data = request()->validate([
-            'email' => ['required','email:rfc,dns,spoof','max:255'],
-        ]);
-
-        Mail::to($data["email"])->send(new ErrorAssignEmail($error->project->name, $error->message));
-        
-        $error->assigned_to = $data['email'];
-        $error->save();
-
-        return redirect()->route('dashboard.errors.list')->with('toast', [
-            'type' => 'success',
-            'message' => 'Error assigned to '.$data['email'].' !',
+            'message' => 'Error updated !',
         ]);
     }
 }
