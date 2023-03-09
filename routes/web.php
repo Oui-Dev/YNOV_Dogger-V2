@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ErrorsController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,11 +67,11 @@ Route::group([
 
     // Profile
     Route::group([
-        'prefix' => 'profil',
-        'as' => 'profil.',
-        'controller' => ProfilController::class
+        'prefix' => 'profile',
+        'as' => 'profile.',
+        'controller' => ProfileController::class
     ], function () {
-        Route::get('/', 'profil')->name('show');
+        Route::get('/', 'show')->name('show');
         Route::put('/edit', 'update')->name('edit');
         Route::delete('/delete', 'delete')->name('delete');
     });

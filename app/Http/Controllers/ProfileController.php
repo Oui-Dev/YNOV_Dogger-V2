@@ -7,10 +7,10 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
-class ProfilController extends Controller
+class ProfileController extends Controller
 {
-    public function profil() {
-        return Inertia::render("Dashboard/Profil");
+    public function show() {
+        return Inertia::render("Dashboard/Profile");
     }
 
     public function update() {
@@ -20,12 +20,12 @@ class ProfilController extends Controller
             'lastname' => ['nullable', 'string', 'max:255'],
             'firstname' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable','email:rfc,dns,spoof','max:255', Rule::unique('users')->ignore($user->id)],
-            'old_password' => ['required_with:password', 'string', function($attribute, $value, $fail) use ($user) {
+            'old_password' => ['required_with:password', 'nullable', 'string', function($attribute, $value, $fail) use ($user) {
                 if(!Hash::check($value, $user->password)) {
                     $fail('Current password is incorrect');
                 }
             }],
-            'password' => ['required_with:old_password', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
+            'password' => ['required_with:old_password', 'nullable', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
         ]);
 
         $user->lastname = $data['lastname'] ?? $user->lastname;
