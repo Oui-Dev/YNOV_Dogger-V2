@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\StaticViewController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ErrorsController;
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ErrorsController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,19 @@ Route::group([
     });
 
     // Users
+    Route::group([
+        'prefix' => 'users',
+        'as' => 'users.',
+        'controller' => UsersController::class,
+        'middleware' => ['role:admin'],
+    ], function () {
+        Route::get('/', 'list')->name('list');
+        Route::post('/new', 'create')->name('add');
+        Route::put('/edit/{user}', 'update')->name('edit');
+        Route::delete('/delete/{user}', 'delete')->name('delete');
+    });
+
+    // Profile
     Route::group([
         'prefix' => 'profil',
         'as' => 'profil.',

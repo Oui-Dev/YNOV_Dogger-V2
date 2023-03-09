@@ -4,14 +4,16 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
         
 const authNavigation = [
-    {name: "Dashboard", routeName: "dashboard.index"},
-    {name: "Projects", routeName: "dashboard.projects.list"},
-    {name: "Errors", routeName: "dashboard.errors.list"},
-    {name: "Profile", routeName: "dashboard.profil.show"}
+    {name: "Dashboard", routeName: "dashboard.index", condition: () => isAuth.value},
+    {name: "Projects", routeName: "dashboard.projects.list", condition: () => isAuth.value},
+    {name: "Errors", routeName: "dashboard.errors.list", condition: () => isAuth.value},
+    {name: "Users", routeName: "dashboard.users.list", condition: () => isAdmin.value},
+    {name: "Profile", routeName: "dashboard.profil.show", condition: () => isAuth.value}
 ];
 
 const isReduced = ref(true);
 const isAuth = computed(() => usePage().props.auth.user !== null);
+const isAdmin = computed(() => usePage().props.auth.user.roles.includes("admin"));
 
 const openSideBar = () => isReduced.value = !isReduced.value;
 </script>
@@ -25,8 +27,8 @@ const openSideBar = () => isReduced.value = !isReduced.value;
             </div>
 
             <div class="menu-side">
-                <template v-if="isAuth">
-                    <Link v-for="item in authNavigation" :key="item.name"
+                <template v-for="item in authNavigation">
+                    <Link v-if="item.condition()"
                         :href="route(item.routeName)"
                         :class="{'active-link': route().current() === item.routeName}"
                     >
