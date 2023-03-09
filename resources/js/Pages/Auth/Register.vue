@@ -46,8 +46,7 @@ const submitForm = () => {
                 <div :class="['md:pt-2', { 'form-error-div': form.errors.lastname }]">
                     <label for="email">Email</label>
                     <input v-model="form.email" id="email" type="email" />
-                    <div v-if="formErrorsBag?.email" class="form-error-field">{{ formErrorsBag.email[0] }}</div>
-                    <div v-if="form.errors.firstname" class="form-error-field">{{ form.errors.firstname }}</div>
+                    <div v-if="form.errors.email" class="form-error-field">{{ form.errors.email }}</div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                     <div :class="['md:pt-2', { 'form-error-div': form.errors.password }]">

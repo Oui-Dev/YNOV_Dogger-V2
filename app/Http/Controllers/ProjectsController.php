@@ -27,8 +27,8 @@ class ProjectsController extends Controller
         $user = auth()->user();
 
         $data = request()->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('projects')->where(function ($query) {
-                return $query->where('user_id', request()->user()->id);
+            'name' => ['required', 'string', 'max:255', Rule::unique('projects')->where(function ($query) use ($user) {
+                return $query->where('organization_id', $user->organization->id);
             })], 
         ]);
 
@@ -45,11 +45,12 @@ class ProjectsController extends Controller
     }
 
     public function update(Project $project) {
+        $user = auth()->user();
         $this->hasAccessToProject($project);
 
         $data = request()->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('projects')->where(function ($query) {
-                return $query->where('user_id', request()->user()->id);
+            'name' => ['required', 'string', 'max:255', Rule::unique('projects')->where(function ($query) use ($user) {
+                return $query->where('organization_id', $user->organization->id);
             })->ignore($project->id)],
         ]);
 
