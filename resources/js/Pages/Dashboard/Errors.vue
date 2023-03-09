@@ -3,9 +3,8 @@ import { ref, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/Default.vue';
 import Table from '@/Components/Table/Table.vue';
+import ErrorDetailsSlideOver from '../../Components/ErrorDetailsSlideOver.vue';
 import { DocumentMagnifyingGlassIcon } from '@heroicons/vue/24/outline';
-
-const selectedProject = ref(new URLSearchParams(new URL(window.location.href).search).get('project') ?? 'All');
 
 const props = defineProps({
     errors: {
@@ -17,7 +16,15 @@ const props = defineProps({
         required: false,
         default: [],
     },
+    users: {
+        type: Array,
+        required: false,
+        default: [],
+    },
 });
+
+const selectedProject = ref(new URLSearchParams(new URL(window.location.href).search).get('project') ?? 'All');
+const slideOver = ref({ error: null, show: false });
 
 watch(selectedProject, (id) => {
     router.get(route('dashboard.errors.list', { project: id }));
@@ -44,8 +51,8 @@ const getErrorStatus = (error) => {
     }
 }
 
-function showDetails(error) {
-    console.log(error);
+function showDetails(error, show = true) {
+    slideOver.value = { error, show };
 }
 </script>
 
@@ -66,8 +73,7 @@ function showDetails(error) {
             ]"
             :pagination=true
         />
-
-        <!-- TODO : Add details slide over -->
+        <ErrorDetailsSlideOver :error="slideOver.error" :show="slideOver.show" :users="users" @close="showDetails(null, false)" />
     </DefaultLayout>
 </template>
 

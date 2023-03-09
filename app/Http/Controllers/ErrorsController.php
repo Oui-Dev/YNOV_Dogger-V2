@@ -32,6 +32,7 @@ class ErrorsController extends Controller
         return Inertia::render("Dashboard/Errors", [
             'errors' => $errors,
             'projects' => $projects,
+            'users' => $user->organization->users()->get(),
         ]);
     }
 
