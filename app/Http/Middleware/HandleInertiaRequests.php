@@ -46,11 +46,9 @@ class HandleInertiaRequests extends Middleware
                         'lastname' => $request->user()->lastname,
                         'email' => $request->user()->email,
                         'roles' => $request->user()->getRoleNames(),
-                        'permissions' => $request->user()->getAllPermissions(),
                     ] : null,
                 ];
             },
-            'routeName' => $request->route()->getName(),
             'toast' => function () {
                 return Session::get('toast');
             },
