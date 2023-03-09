@@ -36,7 +36,7 @@ const openSideBar = () => isReduced.value = !isReduced.value;
             </div>
 
             <div class="button-side relative">
-                <Link v-if="isAuth" :href="route('logout')" as="button" method="delete" class="menu-button">
+                <Link v-if="isAuth" :href="route('logout')" class="menu-button">
                     Logout
                 </Link>
                 <Link v-else :href="route('login')" class="menu-button orange">
@@ -68,7 +68,7 @@ const openSideBar = () => isReduced.value = !isReduced.value;
                             </Link>
                         </template>
                         <div class="border-solid border-t border-gray-300 flex gap-3 mt-3 pt-4">
-                            <Link v-if="isAuth" :href="route('logout')" as="button" method="delete" class="menu-button">
+                            <Link v-if="isAuth" :href="route('logout')" class="menu-button">
                                 Logout
                             </Link>
                             <Link v-else :href="route('login')" class="menu-button orange">
