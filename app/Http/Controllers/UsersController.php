@@ -44,24 +44,6 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(User $user) {
-        $data = request()->validate([
-            'lastname' => ['nullable', 'string', 'max:255'],
-            'firstname' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable','email:rfc,dns,spoof','max:255', Rule::unique('users')->ignore($user->id)],
-        ]);
-
-        $user->lastname = $data['lastname'] ?? $user->lastname;
-        $user->firstname = $data['firstname'] ?? $user->firstname;
-        $user->email = $data['email'] ?? $user->email;
-        $user->save();
-
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'User updated !',
-        ]);
-    }
-
     public function delete(User $user) {
         $user->delete();
 

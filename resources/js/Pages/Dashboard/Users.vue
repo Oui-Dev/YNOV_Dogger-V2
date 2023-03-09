@@ -4,7 +4,7 @@ import { router, useForm } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
-import { PencilSquareIcon, TrashIcon, KeyIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { TrashIcon, UserPlusIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 
 defineProps({
     users: {
@@ -20,23 +20,22 @@ const userForm = useForm({
 });
 const modalState = ref({
     create: false,
-    edit: false,
     delete: false,
 });
 const modalUserId = ref(null);
 
-const getUserName = (project) => project.firstname + " " + project.lastname;
+const getUserName = (user) => user.firstname + " " + user.lastname;
 const getUserDate = (user) => {
     let date = user.created_at;
     date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
 
-function changeModalState(modal, state = true, project = null) {
+function changeModalState(modal, state = true, user = null) {
     modalState.value[modal] = state;
-    if(project) {
-        modalUserId.value = project.id;
-        userForm.name = project.name;
+    if(user) {
+        modalUserId.value = user.id;
+        userForm.name = user.name;
     }
 }
 
@@ -45,13 +44,6 @@ function addUser() {
         preserveScroll: true,
         onStart: () => userForm.clearErrors(),
         onSuccess: () => changeModalState('create', false),
-    });
-}
-function editUser() {
-    userForm.put(route('dashboard.users.edit', modalUserId.value), {
-        preserveScroll: true,
-        onStart: () => userForm.clearErrors(),
-        onSuccess: () => changeModalState('edit', false),
     });
 }
 function deleteUser() {
@@ -72,32 +64,46 @@ function deleteUser() {
             :tableKeys="[{function: getUserName}, 'email', {function: getUserDate}]"
             :data="users"
             :actions="[
-                { type: 'function', function: (e) => changeModalState('edit', true, e), icon: PencilSquareIcon, iconText: 'Edit user' },
                 { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete user', hoverColor: 'hover:text-red-600' },
             ]"
             :pagination=true
         />
 
-        <!-- Create/edit Modal -->
+        <!-- Create Modal -->
         <Modal
-            :show="modalState.create || modalState.edit"
-            @closeModal="changeModalState(modalState.create ? 'create' : 'edit', false)"
+            :show="modalState.create"
+            @closeModal="changeModalState('create', false)"
         >
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <form @submit.prevent="modalState.create ? addUser() : editUser()" class='flex flex-col items-stretch'>
-                    <label for="userFirstname" class="block text-sm font-medium text-gray-700">First name:</label>
-                    <input v-model="userForm.firstname" type="text" id="userFirstname" />
-                    <label for="userLastname" class="block text-sm font-medium text-gray-700">Last name:</label>
-                    <input v-model="userForm.lastname" type="text" id="userLastname" />
+                <div class="sm:flex sm:items-start mb-2">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-dogger-orange-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <UserPlusIcon class="h-6 w-6 text-dogger-orange-500" aria-hidden="true" />
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900">Create User</h3>
+                        <p class="text-sm text-gray-500">Please enter valid data for your user.</p>
+                    </div>
+                </div>
+                <form @submit.prevent="addUser()" class='flex flex-col items-stretch'>
+                    <div class="grid grid-cols-2 gap-6 mb-2">
+                        <div>
+                            <label for="userFirstname" class="block text-sm font-medium text-gray-700">First name:</label>
+                            <input v-model="userForm.firstname" type="text" id="userFirstname" />
+                        </div>
+                        <div>
+                            <label for="userLastname" class="block text-sm font-medium text-gray-700">Last name:</label>
+                            <input v-model="userForm.lastname" type="text" id="userLastname" />
+                        </div>
+                    </div>
                     <label for="userEmail" class="block text-sm font-medium text-gray-700">Email:</label>
                     <input v-model="userForm.email" type="text" id="userEmail" />
                 </form>
             </div>
             <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">
-                <button @click="modalState.create ? addUser() : editUser()" class="btn primary">
-                    {{ modalState.create ? 'Add' : 'Edit' }}
+                <button @click="addUser()" class="btn primary">
+                    Add
                 </button>
-                <button @click="changeModalState(modalState.create ? 'create' : 'edit', false)" class="btn generic">
+                <button @click="changeModalState('create', false)" class="btn generic">
                     Cancel
                 </button>
             </div>

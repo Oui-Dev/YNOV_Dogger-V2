@@ -4,7 +4,7 @@ import { router, useForm } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
-import { PencilSquareIcon, TrashIcon, KeyIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { PencilSquareIcon, TrashIcon, KeyIcon, ExclamationTriangleIcon, SquaresPlusIcon } from '@heroicons/vue/24/outline';
 
 defineProps({
     projects: {
@@ -91,6 +91,15 @@ function deleteProject() {
             @closeModal="changeModalState(modalState.create ? 'create' : 'edit', false)"
         >
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start mb-2">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-dogger-orange-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <SquaresPlusIcon class="h-6 w-6 text-dogger-orange-500" aria-hidden="true" />
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900">{{ modalState.create ? 'Create Project' : 'Edit Project' }}</h3>
+                        <p class="text-sm text-gray-500">Please enter a name for your project.</p>
+                    </div>
+                </div>
                 <form @submit.prevent="modalState.create ? addProject() : editProject()" class='flex flex-col items-stretch'>
                     <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
                     <input v-model="projectForm.name" type="text" id="projectName" />

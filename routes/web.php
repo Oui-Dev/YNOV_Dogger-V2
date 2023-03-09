@@ -62,7 +62,6 @@ Route::group([
     ], function () {
         Route::get('/', 'list')->name('list');
         Route::post('/new', 'create')->name('add');
-        Route::put('/edit/{user}', 'update')->name('edit');
         Route::delete('/delete/{user}', 'delete')->name('delete');
     });
 
