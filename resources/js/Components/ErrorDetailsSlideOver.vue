@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import {
     Dialog,
     DialogPanel,
@@ -7,7 +7,7 @@ import {
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 
 const emits = defineEmits(['close']);
@@ -31,6 +31,8 @@ const props = defineProps({
 
 const open = ref(props.show);
 const openedError = ref([]);
+const isAdmin = computed(() => usePage().props.auth.user.roles.includes('admin'));
+const currentUserId = computed(() => usePage().props.auth.user.id);
 const form = useForm({
     assigned_to: props.error?.assigned_to,
     status: props.error?.status,
@@ -110,18 +112,34 @@ function submitForm() {
                                                 </dd>
                                             </div>
                                             <form @submit.prevent="submitForm" class="pt-2 border-t border-gray-200">
-                                                <div class="sm:flex py-3 md:py-5">
+                                                <div v-if="isAdmin || props.error?.assigned_to === currentUserId" class="sm:flex py-3 md:py-5">
                                                     <dt class="text-sm font-medium text-gray-500 sm:w-20 sm:flex-shrink-0">
                                                         Assign to
                                                     </dt>
                                                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6 w-full">
-                                                        <select v-model="form.assigned_to">
+                                                        <select v-if="isAdmin" v-model="form.assigned_to">
                                                             <option :value="null">Not assigned</option>
                                                             <option v-for="user in props.users" :value="user.id">{{ user.firstname + " " + user.lastname }}</option>
                                                         </select>
+                                                        <span v-else>Me</span>
                                                     </dd>
                                                 </div>
-                                                <div class="sm:flex py-2 md:py-5">
+                                                <div v-else-if="!props.error?.assigned_to" class="sm:flex py-3 md:py-5">
+                                                    <dt class="text-sm font-medium text-gray-500 sm:w-20 sm:flex-shrink-0 my-auto">
+                                                        Assign self
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6 w-full flex gap-10">
+                                                        <div class="flex items-center">
+                                                            <input v-model="form.assigned_to" id="radio_yes" type="radio" :value="currentUserId" class="h-4 w-4" />
+                                                            <label for="radio_yes" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Yes</label>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <input v-model="form.assigned_to" id="radio_no" type="radio" :value="null" class="h-4 w-4" />
+                                                            <label for="radio_no" class="ml-3 block text-sm font-medium leading-6 text-gray-900">No</label>
+                                                        </div>
+                                                    </dd>
+                                                </div>
+                                                <div v-if="isAdmin || props.error?.assigned_to === currentUserId" class="sm:flex py-2 md:py-5">
                                                     <dt class="text-sm font-medium text-gray-500 sm:w-20 sm:flex-shrink-0">
                                                         Status
                                                     </dt>
