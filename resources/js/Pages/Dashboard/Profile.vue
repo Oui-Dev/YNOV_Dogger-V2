@@ -1,12 +1,20 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { router, useForm, usePage } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/Default.vue';
 import Modal from '@/Components/Modal.vue';
 import Avatar from '@/Components/Avatar.vue';
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
+import { ExclamationTriangleIcon, PencilIcon, BuildingOffice2Icon } from '@heroicons/vue/24/outline';
+
+defineProps({
+    organization: {
+        type: Object,
+        required: true,
+    },
+});
 
 const currentUser = computed(() => usePage().props.auth.user);
+const isAdmin = computed(() => usePage().props.auth.user.roles.includes('admin'));
 const userInitials = computed(() => currentUser.value.firstname.charAt(0) + currentUser.value.lastname.charAt(0));
 const modalState = ref({
     editOrganization: false,
@@ -28,7 +36,6 @@ function editOrganization() {
     
 }
 function editProfile() {
-    console.log(userForm);
     userForm.put(route('dashboard.profile.edit'), {
         preserveScroll: true,
         onStart: () => userForm.clearErrors(),
@@ -41,7 +48,7 @@ function deleteProfile() {
 
 <template>
     <DefaultLayout>
-        <div class="mt-16 mx-0 md:mt-0">
+        <div class="mx-0 mt-0 md:mt-16 ">
             <form @submit.prevent="editProfile">
                 <div class="overflow-hidden shadow md:rounded-md">
                     <div class="bg-white px-4 py-5 md:p-6">
@@ -78,6 +85,11 @@ function deleteProfile() {
                                 <label for="password_confirmation">Confirm New Password</label>
                                 <input v-model="userForm.password_confirmation" type="password" id="password_confirmation" autocomplete="new-password" />
                             </div>
+                            <div class="col-span-6 text-base font-light flex gap-2 items-center">
+                               <p>My organization :</p>
+                               <span class="font-semibold">{{ organization.name }}</span>
+                               <PencilIcon v-if="isAdmin" @click="changeModalState('editOrganization', true)" class="w-4 h-4 cursor-pointer hover:text-dogger-orange-500" />
+                            </div>
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 flex justify-between md:px-6">
@@ -88,7 +100,40 @@ function deleteProfile() {
             </form>
         </div>
 
-        <!-- Delete Modal -->
+        <!-- Edit Organization Modal -->
+        <Modal
+            v-if="isAdmin" :show="modalState.editOrganization"
+            @closeModal="changeModalState('editOrganization', false)"
+        >
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start mb-2">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-dogger-orange-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <BuildingOffice2Icon class="h-6 w-6 text-dogger-orange-500" aria-hidden="true" />
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900">Edit Organization</h3>
+                        <p class="text-sm text-gray-500">Please enter a name for your organzation.</p>
+                    </div>
+                </div>
+                <form @submit.prevent="editOrganization()" class='flex flex-col items-stretch'>
+                    <!-- TODO : do the form -->
+                    <!-- <div :class="{ 'form-error-div': projectForm.errors.name }">
+                        <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
+                        <input v-model="projectForm.name" type="text" id="projectName" />
+                        <div v-if="projectForm.errors.name" class="form-error-field">{{ projectForm.errors.name }}</div>
+                    </div> -->
+                </form>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">
+                <button @click="editOrganization()" class="btn primary">
+                    Edit
+                </button>
+                <button @click="changeModalState('editOrganization', false)" class="btn generic">
+                    Cancel
+                </button>
+            </div>
+        </Modal>
+        <!-- Delete Profile Modal -->
         <Modal :show="modalState.deleteProfile" @closeModal="changeModalState('deleteProfile', false)">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">

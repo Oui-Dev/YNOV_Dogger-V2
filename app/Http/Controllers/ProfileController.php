@@ -10,7 +10,9 @@ use Inertia\Inertia;
 class ProfileController extends Controller
 {
     public function show() {
-        return Inertia::render("Dashboard/Profile");
+        return Inertia::render("Dashboard/Profile", [
+            'organization' => auth()->user()->organization,
+        ]);
     }
 
     public function update() {
