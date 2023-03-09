@@ -31,13 +31,15 @@ watch(selectedProject, (id) => {
 });
 
 const getProjectName = (error) => error.project.name;
-
+const getErrorAssignedUser = (error) => {
+    if(!error.assigned_to) return 'Not assigned';
+    return error.assigned_to.full_name;
+};
 const getErrorDate = (error) => {
     let date = error.timestamp;
     date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
-
 const getErrorStatus = (error) => {
     switch(error.status) {
         case 0:
@@ -65,8 +67,8 @@ function showDetails(error, show = true) {
             </select>
         </div>
         <Table
-            :tableTitles="['Project', 'Date', 'Code', 'Status']"
-            :tableKeys="[{function: getProjectName}, {function: getErrorDate}, 'code', {function: getErrorStatus}]"
+            :tableTitles="['Project', 'Assign to', 'Date', 'Status']"
+            :tableKeys="[{function: getProjectName}, {function: getErrorAssignedUser}, {function: getErrorDate}, {function: getErrorStatus}]"
             :data="errors"
             :actions="[
                 { type: 'function', function: showDetails, icon: DocumentMagnifyingGlassIcon, iconText: 'Show error details' },

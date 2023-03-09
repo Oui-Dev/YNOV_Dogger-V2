@@ -50,7 +50,7 @@ watch(() => props, (data) => {
         if(data.error.path) tmp.push(['Path', data.error.path]);
         if(data.error.line) tmp.push(['At line', data.error.line]);
 
-        form.assigned_to = data.error.assigned_to;
+        form.assigned_to = data.error.assigned_to?.id ?? null;
         form.status = data.error.status;
     }
     openedError.value = tmp;
@@ -115,7 +115,7 @@ function submitForm() {
                                                 </dd>
                                             </div>
                                             <form @submit.prevent="submitForm" class="pt-2 border-t border-gray-200">
-                                                <div v-if="isAdmin || props.error?.assigned_to === currentUserId" class="sm:flex py-3 md:py-5">
+                                                <div v-if="isAdmin || props.error?.assigned_to.id === currentUserId" class="sm:flex py-3 md:py-5">
                                                     <dt class="text-sm font-medium text-gray-500 sm:w-20 sm:flex-shrink-0">
                                                         Assign to
                                                     </dt>
@@ -142,7 +142,7 @@ function submitForm() {
                                                         </div>
                                                     </dd>
                                                 </div>
-                                                <div v-if="isAdmin || props.error?.assigned_to === currentUserId" class="sm:flex py-2 md:py-5">
+                                                <div v-if="isAdmin || props.error?.assigned_to.id === currentUserId" class="sm:flex py-2 md:py-5">
                                                     <dt class="text-sm font-medium text-gray-500 sm:w-20 sm:flex-shrink-0">
                                                         Status
                                                     </dt>

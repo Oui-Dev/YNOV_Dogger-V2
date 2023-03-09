@@ -26,7 +26,7 @@ class ErrorsController extends Controller
             });
         }
 
-        $errors = $errors->orderBy('created_at', 'desc')->with('project')->paginate(10);
+        $errors = $errors->orderBy('created_at', 'desc')->with('project')->with('assignedTo')->paginate(10);
         $projects = $user->organization->projects()->get();
 
         return Inertia::render("Dashboard/Errors", [
