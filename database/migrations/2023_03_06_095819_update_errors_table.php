@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('errors', function (Blueprint $table) {
-            $table->string('assigned_to')->nullable()->after('status');
+            $table->foreignId('assigned_to')
+                ->nullable()
+                ->after('status')
+                ->constrained('users')
+                ->nullOnDelete();
             $table->dropColumn('message');
         });
 
@@ -31,6 +35,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('errors', function (Blueprint $table) {
+            $table->dropForeign(['assigned_to']);
             $table->dropColumn('assigned_to');
             $table->dropColumn('message');
         });

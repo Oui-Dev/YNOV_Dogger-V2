@@ -43,6 +43,10 @@ form {
     select {
         @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-dogger-orange-500 focus:ring-dogger-orange-500 text-sm border py-3 px-3;
     }
+    
+    select {
+        @apply py-2 px-2;
+    }
 
     label {
         @apply block mb-2 mt-3 text-sm font-medium text-gray-900;
