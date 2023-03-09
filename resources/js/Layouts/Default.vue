@@ -1,13 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
-import Toast from "@/Components/Toast.vue";
+import { computed, onMounted, watch } from 'vue';
+import { useToast } from "vue-toastification";
 import { usePage } from '@inertiajs/vue3'
 import NavBar from '@/Components/NavBar.vue';
 
-const toast = ref(null);
+const toast = useToast();
 const toastProps = computed(() => usePage().props.toast);
-const getToast = computed(() => toast.value);
-const popstate = computed(() => usePage().props.popstate);
 
 watch(toastProps, () => {
     setToast();
@@ -19,7 +17,8 @@ onMounted(() => {
 
 const setToast = () => {
     if(toastProps.value) {
-        toast.value = toastProps.value;
+        // Available types: "success", "error", "default", "info" and "warning"
+        toast[toastProps.value.type](toastProps.value.message);
     }
 }
 </script>
@@ -27,7 +26,6 @@ const setToast = () => {
 <template>
     <div>
         <div class="min-h-screen">
-            <Toast :toast="getToast" :popstate="popstate" />
             <NavBar />
 
             <!-- Page Content -->
