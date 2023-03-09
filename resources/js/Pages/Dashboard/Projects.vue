@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { router, useForm } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
@@ -13,15 +13,16 @@ defineProps({
     },
 });
 
-const projectForm = useForm({
-    name: '',
-});
+const isAdmin = computed(() => usePage().props.auth.user.roles.includes('admin'));
+const modalProjectId = ref(null);
 const modalState = ref({
     create: false,
     edit: false,
     delete: false,
 });
-const modalProjectId = ref(null);
+const projectForm = useForm({
+    name: '',
+});
 
 const getProjectDate = (project) => {
     let date = project.created_at;
@@ -79,15 +80,15 @@ function deleteProject() {
             :data="projects"
             :actions="[
                 { type: 'function', function: copyProjectKey, icon: KeyIcon, iconText: 'Copy to clipboard project key' },
-                { type: 'function', function: (e) => changeModalState('edit', true, e), icon: PencilSquareIcon, iconText: 'Edit project' },
-                { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete project', hoverColor: 'hover:text-red-600' },
+                { type: 'function', function: (e) => changeModalState('edit', true, e), icon: PencilSquareIcon, iconText: 'Edit project', condition: () => isAdmin },
+                { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete project', hoverColor: 'hover:text-red-600', condition: () => isAdmin },
             ]"
             :pagination=true
         />
 
         <!-- Create/edit Modal -->
         <Modal
-            :show="modalState.create || modalState.edit"
+            v-if="isAdmin" :show="modalState.create || modalState.edit"
             @closeModal="changeModalState(modalState.create ? 'create' : 'edit', false)"
         >
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -118,7 +119,7 @@ function deleteProject() {
             </div>
         </Modal>
         <!-- Delete Modal -->
-        <Modal :show="modalState.delete" @closeModal="changeModalState('delete', false)">
+        <Modal v-if="isAdmin" :show="modalState.delete" @closeModal="changeModalState('delete', false)">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                     <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
