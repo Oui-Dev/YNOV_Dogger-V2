@@ -128,7 +128,7 @@ function deleteProject() {
                         <h3 class="text-base font-semibold leading-6 text-gray-900">Deactivate account</h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">
-                                Are you sure you want to deactivate your account? All of your
+                                Are you sure you want to delete this project ? All of his
                                 data will be permanently removed. This action cannot be undone.
                             </p>
                         </div>
