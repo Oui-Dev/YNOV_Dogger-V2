@@ -122,7 +122,7 @@ function submitForm() {
                                                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6 w-full">
                                                         <select v-if="isAdmin" v-model="form.assigned_to">
                                                             <option :value="null">Not assigned</option>
-                                                            <option v-for="user in props.users" :value="user.id">{{ user.firstname + " " + user.lastname }}</option>
+                                                            <option v-for="user in props.users" :value="user.id">{{ user.full_name }}</option>
                                                         </select>
                                                         <span v-else>Me</span>
                                                     </dd>

@@ -36,6 +36,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
     public function organization(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
         return $this->belongsTo(Organization::class);
@@ -44,6 +51,16 @@ class User extends Authenticatable
     public function ownedOrganization(): \Illuminate\Database\Eloquent\Relations\hasOne
     {
         return $this->hasOne(Organization::class, 'owner_id');
+    }
+
+    public function assignedErrors(): \Illuminate\Database\Eloquent\Relations\hasMany
+    {
+        return $this->hasMany(Error::class, 'assigned_to');
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
     
     public function setPasswordAttribute($password)

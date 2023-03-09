@@ -30,4 +30,9 @@ class Error extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function assignedTo(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
 }

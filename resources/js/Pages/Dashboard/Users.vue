@@ -24,7 +24,6 @@ const modalState = ref({
 });
 const modalUserId = ref(null);
 
-const getUserName = (user) => user.firstname + " " + user.lastname;
 const getUserDate = (user) => {
     let date = user.created_at;
     date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
@@ -61,7 +60,7 @@ function deleteUser() {
         </div>
         <Table
             :tableTitles="['Name', 'Email', 'Created At']"
-            :tableKeys="[{function: getUserName}, 'email', {function: getUserDate}]"
+            :tableKeys="['full_name', 'email', {function: getUserDate}]"
             :data="users"
             :actions="[
                 { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete user', hoverColor: 'hover:text-red-600' },
