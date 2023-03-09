@@ -92,8 +92,8 @@ function deleteProject() {
         >
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <form @submit.prevent="modalState.create ? addProject() : editProject()" class='flex flex-col items-stretch'>
-                    <label htmlFor="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
-                    <input type="text" v-model="projectForm.name" id="projectName" />
+                    <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
+                    <input v-model="projectForm.name" type="text" id="projectName" />
                 </form>
             </div>
             <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">
