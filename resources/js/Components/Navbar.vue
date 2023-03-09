@@ -13,7 +13,7 @@ const authNavigation = [
 
 const isReduced = ref(true);
 const isAuth = computed(() => usePage().props.auth.user !== null);
-const isAdmin = computed(() => usePage().props.auth.user.roles.includes("admin"));
+const isAdmin = computed(() => usePage().props.auth.user?.roles.includes("admin"));
 
 const openSideBar = () => isReduced.value = !isReduced.value;
 </script>
