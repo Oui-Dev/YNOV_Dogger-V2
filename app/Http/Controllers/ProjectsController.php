@@ -38,7 +38,7 @@ class ProjectsController extends Controller
             'organization_id' => $user->organization->id,
         ]);
 
-        return redirect()->route('dashboard.projects.list')->with('toast', [
+        return redirect()->back()->with('toast', [
             'type' => 'success',
             'message' => 'Project created !',
         ]);
@@ -58,7 +58,7 @@ class ProjectsController extends Controller
         $project->key = $newKey;
         $project->save();
 
-        return redirect()->route('dashboard.projects.list')->with('toast', [
+        return redirect()->back()->with('toast', [
             'type' => 'success',
             'message' => 'Project updated !',
         ]);
@@ -69,7 +69,7 @@ class ProjectsController extends Controller
 
         $project->delete();
 
-        return redirect()->route('dashboard.projects.list')->with('toast', [
+        return redirect()->back()->with('toast', [
             'type' => 'success',
             'message' => 'Project deleted !',
         ]);

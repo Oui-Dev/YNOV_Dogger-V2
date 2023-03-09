@@ -34,9 +34,9 @@ class ProfilController extends Controller
         if(isset($data['password'])) $user->password = $data['password'];
         $user->save();
 
-        return redirect()->route('dashboard.user.profil')->with('toast', [
+        return redirect()->back()->with('toast', [
             'type' => 'success',
-            'message' => 'User created !',
+            'message' => 'Account updated !',
         ]);
     }
 
@@ -44,7 +44,7 @@ class ProfilController extends Controller
         $user = request()->user();
 
         if($user->projects()->count() > 0) {
-            return redirect()->route('dashboard.user.profil')->with('toast', [
+            return redirect()->back()->with('toast', [
                 'type' => 'error',
                 'message' => 'You can\'t delete your account because you have projects.',
             ]);
@@ -54,7 +54,7 @@ class ProfilController extends Controller
 
         return redirect()->route('homepage')->with('toast', [
             'type' => 'success',
-            'message' => 'User deleted !',
+            'message' => 'Account deleted !',
         ]);
     }
 }
