@@ -85,17 +85,22 @@ function deleteUser() {
                 </div>
                 <form @submit.prevent="addUser()" class='flex flex-col items-stretch'>
                     <div class="grid grid-cols-2 gap-6 mb-2">
-                        <div>
+                        <div :class="{ 'form-error-div': userForm.errors.firstname }">
                             <label for="userFirstname" class="block text-sm font-medium text-gray-700">First name:</label>
                             <input v-model="userForm.firstname" type="text" id="userFirstname" />
+                            <div v-if="userForm.errors.firstname" class="form-error-field">{{ userForm.errors.firstname }}</div>
                         </div>
-                        <div>
+                        <div :class="{ 'form-error-div': userForm.errors.lastname }">
                             <label for="userLastname" class="block text-sm font-medium text-gray-700">Last name:</label>
                             <input v-model="userForm.lastname" type="text" id="userLastname" />
+                            <div v-if="userForm.errors.lastname" class="form-error-field">{{ userForm.errors.lastname }}</div>
                         </div>
                     </div>
-                    <label for="userEmail" class="block text-sm font-medium text-gray-700">Email:</label>
-                    <input v-model="userForm.email" type="text" id="userEmail" />
+                    <div :class="{ 'form-error-div': userForm.errors.email }">
+                        <label for="userEmail" class="block text-sm font-medium text-gray-700">Email:</label>
+                        <input v-model="userForm.email" type="text" id="userEmail" />
+                        <div v-if="userForm.errors.email" class="form-error-field">{{ userForm.errors.email }}</div>
+                    </div>
                 </form>
             </div>
             <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">

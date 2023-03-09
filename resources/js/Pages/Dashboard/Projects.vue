@@ -101,8 +101,11 @@ function deleteProject() {
                     </div>
                 </div>
                 <form @submit.prevent="modalState.create ? addProject() : editProject()" class='flex flex-col items-stretch'>
-                    <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
-                    <input v-model="projectForm.name" type="text" id="projectName" />
+                    <div :class="{ 'form-error-div': projectForm.errors.name }">
+                        <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
+                        <input v-model="projectForm.name" type="text" id="projectName" />
+                        <div v-if="projectForm.errors.name" class="form-error-field">{{ projectForm.errors.name }}</div>
+                    </div>
                 </form>
             </div>
             <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">
