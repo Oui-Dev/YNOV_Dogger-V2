@@ -45,7 +45,7 @@ class ProjectsController extends Controller
     }
 
     public function update(Project $project) {
-        $this->hasAccess($project->user_id);
+        $this->hasAccessToProject($project);
 
         $data = request()->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('projects')->where(function ($query) {
@@ -65,7 +65,7 @@ class ProjectsController extends Controller
     }
 
     public function delete(Project $project) {
-        $this->hasAccess($project->user_id);
+        $this->hasAccessToProject($project);
 
         $project->delete();
 
