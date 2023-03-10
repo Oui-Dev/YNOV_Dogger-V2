@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Organization;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
@@ -42,6 +44,11 @@ class RegisteredUserController extends Controller
                 ->mixedCase()
                 ->numbers()
             ],
+            'organization_name' => ['required', 'string', 'max:255', Rule::unique('organizations', 'name')],
+        ]);
+
+        $organization = Organization::create([
+            'name' => $request->organization_name,
         ]);
 
         $user = User::create([
@@ -49,9 +56,13 @@ class RegisteredUserController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => $request->password,
+            'organization_id' => $organization->id,
         ]);
 
-        $user->assignRole('user');
+        $organization->owner_id = $user->id;
+        $organization->save();
+        $user->assignRole('admin');
+        
         event(new Registered($user));
         Auth::login($user);
 

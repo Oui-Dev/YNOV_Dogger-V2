@@ -7,6 +7,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    organization_name: '',
 });
 
 const submitForm = () => {
@@ -43,7 +44,7 @@ const submitForm = () => {
                         <div v-if="form.errors.lastname" class="form-error-field">{{ form.errors.lastname }}</div>
                     </div>
                 </div>
-                <div :class="['md:pt-2', { 'form-error-div': form.errors.lastname }]">
+                <div :class="['md:pt-2', { 'form-error-div': form.errors.email }]">
                     <label for="email">Email</label>
                     <input v-model="form.email" id="email" type="email" />
                     <div v-if="form.errors.email" class="form-error-field">{{ form.errors.email }}</div>
@@ -60,6 +61,11 @@ const submitForm = () => {
                         <div v-if="form.errors.password_confirmation" class="form-error-field">{{
                             form.errors.password_confirmation }}</div>
                     </div>
+                </div>
+                <div :class="['md:pt-2', { 'form-error-div': form.errors.organization_name }]">
+                    <label for="organization_name">Organization name</label>
+                    <input v-model="form.organization_name" id="organization_name" type="organization_name" />
+                    <div v-if="form.errors.organization_name" class="form-error-field">{{ form.errors.organization_name }}</div>
                 </div>
                 <button class="btn primary mt-6 w-full" type="submit">Register</button>
             </form>
