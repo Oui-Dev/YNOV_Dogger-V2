@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { router, useForm } from '@inertiajs/vue3';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
@@ -29,6 +29,7 @@ const getUserDate = (user) => {
     date = !isNaN(Date.parse(date + " GMT")) ? new Date(date + " GMT") : new Date(date);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
+const isNotCurrentUser = (user) => user.id != usePage().props.auth.user.id;
 
 function changeModalState(modal, state = true, user = null) {
     modalState.value[modal] = state;
@@ -63,7 +64,7 @@ function deleteUser() {
             :tableKeys="['full_name', 'email', {function: getUserDate}]"
             :data="users"
             :actions="[
-                { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete user', hoverColor: 'hover:text-red-600' },
+                { type: 'function', function: (e) => changeModalState('delete', true, e), icon: TrashIcon, iconText: 'Delete user', hoverColor: 'hover:text-red-600', condition: isNotCurrentUser },
             ]"
             :pagination=true
         />
