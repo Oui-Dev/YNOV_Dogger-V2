@@ -74,5 +74,8 @@ Route::group([
         Route::get('/', 'show')->name('show');
         Route::put('/edit', 'update')->name('edit');
         Route::delete('/delete', 'delete')->name('delete');
+        Route::put('/organization/edit', 'updateOrganization')
+            ->middleware('role:admin')
+            ->name('organization.edit');
     });
 });

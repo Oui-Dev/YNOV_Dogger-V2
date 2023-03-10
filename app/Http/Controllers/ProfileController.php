@@ -42,6 +42,22 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function updateOrganization() {
+        $user = auth()->user();
+
+        $data = request()->validate([
+            'name' => ['required', 'string', 'max:255', Rule::unique('organizations')->ignore($user->organization->id)],
+        ]);
+
+        $user->organization->name = $data['name'];
+        $user->organization->save();
+
+        return redirect()->back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Organization updated !',
+        ]);
+    }
+
     public function delete() {
         $user = request()->user();
 

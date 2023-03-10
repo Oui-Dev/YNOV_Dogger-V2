@@ -6,7 +6,7 @@ import Modal from '@/Components/Modal.vue';
 import Avatar from '@/Components/Avatar.vue';
 import { ExclamationTriangleIcon, PencilIcon, BuildingOffice2Icon } from '@heroicons/vue/24/outline';
 
-defineProps({
+const props = defineProps({
     organization: {
         type: Object,
         required: true,
@@ -30,10 +30,18 @@ const userForm = useForm({
     password_confirmation: null,
 });
 
+const organizationForm = useForm({
+    name: props.organization.name,
+});
+
 const changeModalState = (modal, state = true) => modalState.value[modal] = state;
 
 function editOrganization() {
-    
+    organizationForm.put(route('dashboard.profile.organization.edit'), {
+        preserveScroll: true,
+        onStart: () => organizationForm.clearErrors(),
+        onSuccess: () => changeModalState('editOrganization', false),
+    });
 }
 function editProfile() {
     userForm.put(route('dashboard.profile.edit'), {
@@ -116,12 +124,11 @@ function deleteProfile() {
                     </div>
                 </div>
                 <form @submit.prevent="editOrganization()" class='flex flex-col items-stretch'>
-                    <!-- TODO : do the form -->
-                    <!-- <div :class="{ 'form-error-div': projectForm.errors.name }">
-                        <label for="projectName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
-                        <input v-model="projectForm.name" type="text" id="projectName" />
-                        <div v-if="projectForm.errors.name" class="form-error-field">{{ projectForm.errors.name }}</div>
-                    </div> -->
+                    <div :class="{ 'form-error-div': organizationForm.errors.name }">
+                        <label for="organizationName" class="block text-sm font-medium text-gray-700">Enter Name:</label>
+                        <input v-model="organizationForm.name" type="text" id="organizationName" />
+                        <div v-if="organizationForm.errors.name" class="form-error-field">{{ organizationForm.errors.name }}</div>
+                    </div>
                 </form>
             </div>
             <div class="bg-gray-50 px-4 py-3 flex sm:flex-row-reverse gap-5 sm:px-6">
