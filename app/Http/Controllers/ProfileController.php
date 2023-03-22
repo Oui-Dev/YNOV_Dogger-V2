@@ -59,7 +59,7 @@ class ProfileController extends Controller
     }
 
     public function delete() {
-        $user = request()->user();
+        $user = auth()->user();
 
         if($user->projects()->count() > 0) {
             return redirect()->back()->with('toast', [
