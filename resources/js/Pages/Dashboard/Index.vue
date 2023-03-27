@@ -20,8 +20,6 @@ const props = defineProps({
     }
 });
 
-const errorCount = Object.values(props.chartData.allErrors);
-
 ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -45,8 +43,7 @@ const options = {
     scales: {
         y: {
             type: 'linear',
-            min: Math.round(Math.min(...errorCount) * 0.9),
-            max: Math.round(Math.max(...errorCount) * 1.1),
+            grace: '5%',
         },
         x: {
             type: 'category',
@@ -66,6 +63,6 @@ const statsCardsData = ref([
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <StatsCard v-for="(card, index) in statsCardsData" :key="index" v-bind="card" />
         </div>
-        <Line :data="data" :options="options" />
+        <Line :data="data" :options="options"  class="py-6 sm:px-6 px-2" />
     </DefaultLayout>
 </template>
