@@ -52,7 +52,8 @@ const actionHover = (action) => {
 
 <style lang="scss" scoped>
 .custom_td {
-    @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500;
+    @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500 truncate;
+    max-width: 250px;
 }
 .custom_actions {
     @apply relative whitespace-nowrap py-4 pl-3 pr-4 sm:pr-6 flex justify-end gap-3;
