@@ -58,7 +58,7 @@
       <!-- Feature section -->
       <div id="feature" class="mx-auto mt-6 max-w-7xl px-6 sm:mt-32 lg:px-8">
         <div class="mx-auto max-w-2xl py-12 lg:text-center">
-          <h2 class="text-base font-semibold leading-7 text-dogger-orange-400">Dogger, log better</h2>
+          <h2 class="text-base font-semibold leading-7 text-dogger-orange-400">Use Dogger, log better</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The error logger you need for your app</p>
           <p class="mt-6 text-lg leading-8 text-gray-600">You'll not anymore log your errors by yourself, Dogger will make it for you !</p>
         </div>
@@ -95,14 +95,16 @@
             <path fill="url(#68eb76c4-2bc9-4928-860e-70adf05719f4)" fill-opacity=".25" d="M301.174 646.641 193.541 844.786 0 546.172l301.174 100.469 193.845-356.855c1.241 164.891 42.802 431.935 199.124 180.978 195.402-313.696 143.295-588.18 284.729-419.266 113.148 135.13 124.068 367.989 115.378 467.527L811.753 372.553l20.102 451.119-530.681-177.031Z" />
           </svg>
           <div class="relative mx-auto max-w-2xl lg:mx-0">
-            <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/workcation-logo-white.svg" alt="" />
+            <div class="flex items-center gap-3 text-white">
+                <CheckBadgeIcon class="h-10 w-10"/> 
+                <h3 class="text-2xl font-extrabold">Our missions</h3>
+            </div>
             <figure>
               <blockquote class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
-                <p>“Amet amet eget scelerisque tellus sit neque faucibus non eleifend. Integer eu praesent at a. Ornare arcu gravida natoque erat et cursus tortor consequat at. Vulputate gravida sociis enim nullam ultricies habitant malesuada lorem ac.”</p>
+                <p>“At Dogger, we believe that error logging should be simple and seamless for every developer. Our platform empowers developers to focus on what they do best - building amazing software - while we take care of the tedious task of tracking and fixing errors. With Dogger, you can easily identify and resolve issues before they impact your customers, allowing you to deliver reliable and high-quality software every time.”</p>
               </blockquote>
               <figcaption class="mt-6 text-base text-white">
-                <div class="font-semibold">Judith Black</div>
-                <div class="mt-1">CEO of Tuple</div>
+                <div class="mt-1">CEO of Dogger</div>
               </figcaption>
             </figure>
           </div>
@@ -169,9 +171,9 @@ import {
   ChartBarIcon,
   CloudArrowUpIcon,
   BoltIcon,
-  ArrowTrendingUpIcon
+  ArrowTrendingUpIcon,
 } from '@heroicons/vue/24/outline'
-import { CheckIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, CheckBadgeIcon } from '@heroicons/vue/20/solid'
 import Footer from '../Layouts/Footer.vue';
 
 const features = [
