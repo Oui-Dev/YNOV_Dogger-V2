@@ -2,11 +2,15 @@
 import { Link } from '@inertiajs/vue3';
 
 defineProps({
-    data: {
+    tableTitles: {
         type: Array,
         required: true,
     },
     tableKeys: {
+        type: Array,
+        required: true,
+    },
+    data: {
         type: Array,
         required: true,
     },
@@ -27,14 +31,17 @@ const actionHover = (action) => {
 </script>
 
 <template>
-    <tbody class="divide-y divide-gray-200 bg-white">
-        <tr v-for="(item, i) in data" :key="i">
-            <td v-for="(key, j) in tableKeys" :key="j" class="custom_td">
-                <div v-if="typeof key === 'object' && key.link !== true" v-html="key.function(item)"></div>
-                <Link v-else-if="typeof key === 'object' && key.link === true" :class="['flex gap-2 hover:text-red-800 ', key.function(item).classes]" :href="key.function(item).path">{{ key.function(item).text }}</Link>
-                <div v-else>{{ item[key] }}</div>
-            </td>
-            <td v-if="hasActions" class="custom_actions">
+    <li v-for="(item, index) in data" :key="index" class="flex items-center bg-white px-4 py-4 hover:bg-gray-50">
+        <div class="flex gap-4 justify-between items-center w-full divide-x divide-gray-200">
+            <div class="grid gap-3 text-sm text-gray-500 truncate">
+                <div v-for="(key, index) in tableKeys" class="flex gap-2">
+                    <span class="font-medium text-gray-900 capitalize">{{ tableTitles[index] }} :</span>
+                    <div v-if="typeof key === 'object' && key.link !== true" v-html="key.function(item)"></div>
+                    <Link v-else-if="typeof key === 'object' && key.link === true" :class="['flex gap-2 hover:text-red-800 ', key.function(item).classes]" :href="key.function(item).path">{{ key.function(item).text }}</Link>
+                    <div v-else>{{ item[key] }}</div>
+                </div>
+            </div>
+            <div v-if="hasActions" class="grid gap-4 text-xl pl-4">
                 <template v-for="action in actions">
                     <div v-if="!action.condition || action.condition(item)" :title="action.iconText ?? ''" class="action_btn">
                         <Link v-if="action.type === 'Link'" :href="route(action.routeName, item[action.param])" :as="action.as" :method="action.method" :class="actionHover(action)">
@@ -45,20 +52,7 @@ const actionHover = (action) => {
                         </button>
                     </div>
                 </template>
-            </td>
-        </tr>
-    </tbody>
+            </div>
+        </div>
+    </li>
 </template>
-
-<style lang="scss" scoped>
-.custom_td {
-    @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500;
-}
-.custom_actions {
-    @apply relative whitespace-nowrap py-4 pl-3 pr-4 sm:pr-6 flex justify-end gap-3;
-    
-    .action_btn {
-        @apply p-2 bg-gray-100 rounded-md flex items-center justify-center;
-    }
-}
-</style>
