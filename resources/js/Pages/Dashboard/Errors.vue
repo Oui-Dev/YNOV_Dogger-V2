@@ -81,10 +81,15 @@ function showDetails(error, show = true) {
 
 <style lang="scss" scoped>
 div#select {
-    @apply capitalize py-1 px-2 border border-gray-300 rounded-lg shadow-sm w-fit bg-gray-50;
+    @apply capitalize py-1 px-2 border border-gray-300 rounded-lg shadow-sm w-fit bg-gray-50 mx-auto;
+
+    @screen md {
+        @apply mx-0;
+    }
 
     select {
         @apply bg-transparent;
+        max-width: 300px;
     }
 }
 </style>
