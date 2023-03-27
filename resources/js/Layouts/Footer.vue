@@ -60,7 +60,7 @@
     },
     {
       name: 'GitHub',
-      href: '#',
+      href: 'https://github.com/Oui-Dev/Dogger-V2/',
       icon: defineComponent({
         render: () =>
           h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
