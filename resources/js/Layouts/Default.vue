@@ -3,7 +3,7 @@ import { computed, onMounted, watch } from 'vue';
 import { useToast } from "vue-toastification";
 import { usePage } from '@inertiajs/vue3'
 import NavBar from '@/Components/NavBar.vue';
-import Footer from '../Components/Footer.vue';
+import Footer from '@/Components/Footer.vue';
 
 const toast = useToast();
 const toastProps = computed(() => usePage().props.toast);

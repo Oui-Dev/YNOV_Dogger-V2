@@ -20,7 +20,7 @@ const submitForm = () => {
         <div class="max-w-md w-full mb-14 flex flex-col gap-6 md:gap-12">
             <div>
                 <Link :href="route('homepage')">
-                <img class="mx-auto w-24" src="/images/logo.png" alt="Logo Dogger" />
+                    <img class="mx-auto w-24" src="/images/logo.png" alt="Logo Dogger" />
                 </Link>
                 <h2 class="mt-6 text-center text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
                     Create your account

@@ -133,15 +133,19 @@
                     <div class="relative mx-auto max-w-2xl lg:mx-0">
                         <div class="flex items-center gap-3 text-white">
                             <CheckBadgeIcon class="h-10 w-10" />
-                            <h3 class="text-2xl font-extrabold">Our missions</h3>
+                            <h3 class="text-2xl font-extrabold">
+                                Our missions
+                            </h3>
                         </div>
                         <figure>
                             <blockquote class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
-                                <p>“At Dogger, we believe that error logging should be simple and seamless for every
+                                <p>
+                                    “At Dogger, we believe that error logging should be simple and seamless for every
                                     developer. Our platform empowers developers to focus on what they do best - building
                                     amazing software - while we take care of the tedious task of tracking and fixing errors.
                                     With Dogger, you can easily identify and resolve issues before they impact your
-                                    customers, allowing you to deliver reliable and high-quality software every time.”</p>
+                                    customers, allowing you to deliver reliable and high-quality software every time.”
+                                </p>
                             </blockquote>
                             <figcaption class="mt-6 text-base text-white">
                                 <div class="mt-1">CEO of Dogger</div>
@@ -156,8 +160,9 @@
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="mx-auto max-w-4xl text-center">
                         <h2 class="text-base font-semibold leading-7 text-dogger-orange-400">Pricing</h2>
-                        <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Pricing plans for teams
-                            of&nbsp;all&nbsp;sizes</p>
+                        <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            Pricing plans for teams of&nbsp;all&nbsp;sizes
+                        </p>
                     </div>
                     <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
                         Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.
@@ -218,7 +223,6 @@
 </template>
 
 <script setup>
-
 import { Link } from '@inertiajs/vue3';
 import {
     ChartBarIcon,
@@ -227,31 +231,27 @@ import {
     ArrowTrendingUpIcon,
 } from '@heroicons/vue/24/outline'
 import { CheckIcon, CheckBadgeIcon } from '@heroicons/vue/20/solid'
-import Footer from '../Components/Footer.vue';
+import Footer from '@/Components/Footer.vue';
 
 const features = [
     {
         name: 'Easy to implement',
-        description:
-            'Dogger is easy to implement in your code, no boring configuration needed.',
+        description: 'Dogger is easy to implement in your code, no boring configuration needed.',
         icon: CloudArrowUpIcon,
     },
     {
         name: 'Immediate',
-        description:
-            'All your errors are reported and viewable in real time in your Dogger dashboard.',
+        description: 'All your errors are reported and viewable in real time in your Dogger dashboard.',
         icon: BoltIcon,
     },
     {
         name: 'Stats friendly',
-        description:
-            'Dogger grant you an acces to all your errors with advanced statistics.',
+        description: 'Dogger grant you an acces to all your errors with advanced statistics.',
         icon: ChartBarIcon,
     },
     {
         name: 'Scallable',
-        description:
-            'Dogger is scallable, you can use it for several projects with no team limit.',
+        description: 'Dogger is scallable, you can use it for several projects with no team limit.',
         icon: ArrowTrendingUpIcon,
     },
 ]
@@ -300,18 +300,14 @@ const faqs = [
     {
         id: 1,
         question: "How do we implement Dogger in our code ?",
-        answer:
-            "You can check our documentation to learn how to implement Dogger in your code.",
+        answer: "You can check our documentation to learn how to implement Dogger in your code.",
         link: "https://github.com/Oui-Dev/Dogger-V2/"
     },
     {
         id: 2,
         question: "Is Dogger open source ?",
-        answer:
-            "Yes, Dogger is open source and you can check our GitHub repository to learn more.",
+        answer: "Yes, Dogger is open source and you can check our GitHub repository to learn more.",
         link: "https://github.com/Oui-Dev/Dogger-V2/"
     }
-    // More questions...
 ]
-
 </script>
