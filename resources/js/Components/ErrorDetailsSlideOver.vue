@@ -104,7 +104,7 @@ function submitForm() {
                                         </div>
                                     </div>
                                     <!-- Main -->
-                                    <div class="px-4 pt-5 pb-5 sm:px-0 border-t border-gray-200">
+                                    <div class="px-4 pt-5 pb-5 sm:px-0 border-t border-gray-200 overflow-auto">
                                         <dl class="space-y-8 px-4 sm:space-y-6 sm:px-6">
                                             <div v-for="(item, index) in openedError" :key="index">
                                                 <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
