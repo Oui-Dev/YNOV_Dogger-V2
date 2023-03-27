@@ -35,11 +35,9 @@ const props = defineProps({
     }
 })
 
+const isNegative = computed(() => props.percentage < 0);
 const bgIconClass = computed(() => {
     return `flex justify-center items-center ${props.iconBg ?? 'bg-dogger-orange-500'} p-2 rounded-full w-10 h-10 text-white text-xl`;
-});
-const isNegative = computed(() => {
-    return props.percentage < 0;
 });
 </script>
 
