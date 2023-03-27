@@ -3,6 +3,7 @@ import { computed, onMounted, watch } from 'vue';
 import { useToast } from "vue-toastification";
 import { usePage } from '@inertiajs/vue3'
 import NavBar from '@/Components/NavBar.vue';
+import Footer from '../Components/Footer.vue';
 
 const toast = useToast();
 const toastProps = computed(() => usePage().props.toast);
@@ -16,7 +17,7 @@ onMounted(() => {
 });
 
 const setToast = () => {
-    if(toastProps.value) {
+    if (toastProps.value) {
         // Available types: "success", "error", "default", "info" and "warning"
         toast[toastProps.value.type](toastProps.value.message);
     }
@@ -33,5 +34,6 @@ const setToast = () => {
                 <slot />
             </main>
         </div>
+        <Footer />
     </div>
 </template>
