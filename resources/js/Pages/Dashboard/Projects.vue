@@ -5,6 +5,7 @@ import Modal from '@/Components/Modal.vue';
 import Table from '@/Components/Table/Table.vue';
 import DefaultLayout from '@/Layouts/Default.vue';
 import { PencilSquareIcon, TrashIcon, KeyIcon, ExclamationTriangleIcon, SquaresPlusIcon } from '@heroicons/vue/24/outline';
+import { useToast } from "vue-toastification";
 
 defineProps({
     projects: {
@@ -13,6 +14,7 @@ defineProps({
     },
 });
 
+const toast = useToast();
 const isAdmin = computed(() => usePage().props.auth.user.roles.includes('admin'));
 const modalProjectId = ref(null);
 const modalState = ref({
@@ -37,6 +39,7 @@ const getProjectKey = (project) => {
 }
 const copyProjectKey = (project) => {
     navigator.clipboard.writeText(project.key);
+    toast.success('Project key copied to clipboard');
 }
 
 function changeModalState(modal, state = true, project = null) {
