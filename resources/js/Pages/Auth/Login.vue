@@ -7,7 +7,7 @@ const form = useForm({
 });
 
 const submitForm = () => {
-    form.post(route('login.post'), { onStart: ()=> form.clearErrors()});
+    form.post(route('login.post'), { onStart: () => form.clearErrors() });
 };
 </script>
 
@@ -15,12 +15,14 @@ const submitForm = () => {
     <div class="flex justify-center items-center h-screen p-4">
         <div class="max-w-md w-full mb-24 flex flex-col gap-10 md:gap-14">
             <div>
-                <img class="mx-auto w-24" src="/images/logo.png" alt="Logo Dogger" />
+                <Link :href="route('homepage')">
+                    <img class="mx-auto w-24" src="/images/logo.png" alt="Logo Dogger" />
+                </Link>
                 <h2 class="mt-6 text-center text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
                     Sign in to your account
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600">
-                    Or 
+                    Or
                     <Link :href="route('register')" class="font-medium text-dogger-orange-400 hover:text-dogger-orange-500">
                         create a new account
                     </Link>
