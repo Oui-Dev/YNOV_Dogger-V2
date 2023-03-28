@@ -185,8 +185,9 @@
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">{{ tier.description }}</p>
                                 <p class="mt-6 flex items-baseline gap-x-1">
-                                    <span class="text-4xl font-bold tracking-tight text-gray-900">{{ tier.priceMonthly
-                                    }}</span>
+                                    <span class="text-4xl font-bold tracking-tight text-gray-900">
+                                        {{ tier.priceMonthly }}
+                                    </span>
                                     <span class="text-sm font-semibold leading-6 text-gray-600">/month</span>
                                 </p>
                                 <ul role="list" class="mt-8 space-y-3 text-sm leading-6 text-gray-600">
@@ -277,7 +278,7 @@ const tiers = [
         name: 'Startup',
         id: 'tier-startup',
         href: '#',
-        priceMonthly: '$32',
+        priceMonthly: '$19',
         description: 'For small teams and startups.',
         features: [
             'Unlimited projects',
@@ -291,7 +292,7 @@ const tiers = [
         name: 'Enterprise',
         id: 'tier-enterprise',
         href: '#',
-        priceMonthly: '$48',
+        priceMonthly: '$49',
         description: 'For large teams and enterprises.',
         features: [
             'Unlimited projects',
