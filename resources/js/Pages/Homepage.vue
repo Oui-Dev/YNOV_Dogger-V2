@@ -74,10 +74,10 @@
                         src="https://cdn.discordapp.com/attachments/710405988548739103/1090314323848601701/Vue.js_Logo_2.svg.png" alt="WishExpress" width="158"
                         height="48" />
                     <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src="https://cdn.discordapp.com/attachments/710405988548739103/1090316376050245632/radio.png" alt="RadioVue" width="158"
+                        src="https://cdn.discordapp.com/attachments/710405988548739103/1090317944673804390/radio.png" alt="RadioVue" width="158"
                         height="48" />
                     <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158"
+                        src="https://cdn.discordapp.com/attachments/710405988548739103/1090318332747595808/580b57fcd9996e24bc43c51f.png" alt="Google" width="158"
                         height="48" />
                 </div>
             </div>
