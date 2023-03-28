@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue';
 import DefaultLayout from '@/Layouts/Default.vue';
 import StatsCard from '@/Components/StatsCard.vue';
 import { RectangleStackIcon, ExclamationTriangleIcon, ChartBarIcon } from '@heroicons/vue/24/outline';
+import { ref, watch } from 'vue';
 import { Line } from 'vue-chartjs';
 import {
     Chart as ChartJS,
@@ -17,18 +17,40 @@ const props = defineProps({
     chartData: {
         type: Object,
         required: true
+    },
+    cardsData : {
+        type: Object,
+        required: true
     }
 });
 
+console.log('props', props.cardsData);
+
 ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Tooltip,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
 );
 
-const data = {
+const selectedProject = ref('All');
+const chartRef = ref(null);
+
+watch(selectedProject, (project) => {
+    chartRef.value.chart.clear();
+    if(project === 'All') {
+        data.value.datasets[0].data = props.chartData.allErrors;
+    } else {
+        data.value.datasets[0].data = project.errors
+    }
+    chartRef.value.chart.update();
+    console.log('kevin', chartRef.value)
+    console.log('data.value', data.value.datasets[0].data);
+});
+
+
+const data = ref({
     datasets: [
         {
             label: 'Error Count',
@@ -37,7 +59,9 @@ const data = {
             data: props.chartData.allErrors,
         },
     ],
-};
+});
+
+
 
 const options = {
     scales: {
@@ -52,17 +76,24 @@ const options = {
 };
 
 const statsCardsData = ref([
-    { title: "Total projects", value: null, percentage: null, icon: RectangleStackIcon, iconBg: "bg-blue-500", clickable: true, path: "dashboard.projects.list" },
-    { title: "Total errors", value: null, percentage: null, icon: ExclamationTriangleIcon, iconBg: "bg-red-500", clickable: true, path: "dashboard.errors.list" },
-    { title: "24h Error count", value: null, percentage: null, icon: ChartBarIcon, clickable: true, path: "dashboard.errors.list" },
+    { title: "Total projects", value: ""+props.cardsData.projectCount, icon: RectangleStackIcon, iconBg: "bg-blue-500", clickable: true, path: "dashboard.projects.list" },
+    { title: "Total errors", value: ""+props.cardsData.errorCount, icon: ExclamationTriangleIcon, iconBg: "bg-red-500", clickable: true, path: "dashboard.errors.list" },
+    { title: "24h Error count", value: ""+props.cardsData.error24.count, percentage: props.cardsData.error24.percentage+"%", icon: ChartBarIcon, clickable: true, path: "dashboard.errors.list" },
 ]);
+
 </script>
 
 <template>
     <DefaultLayout>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <StatsCard v-for="(card, index) in statsCardsData" :key="index" v-bind="card" />
         </div>
-        <Line :data="data" :options="options"  class="py-6 sm:px-6 px-2" />
+        <div id="select" class="mt-8">
+            <select v-model="selectedProject" class="border rounded-md">
+                <option value="All">All</option>
+                <option v-for="chartData in props.chartData.projectErrors" :key="chartData" :value="chartData">{{ chartData.project }}</option>
+            </select>
+        </div>
+        <Line ref="chartRef" :data="data" :options="options"  class="py-6 sm:px-6 px-2" />
     </DefaultLayout>
 </template>

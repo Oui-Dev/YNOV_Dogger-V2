@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Project;
+use App\Models\Error;
+use App\Models\User;
 use App\Traits\StatsTrait;
 
 class DashboardController extends Controller
@@ -30,7 +32,18 @@ class DashboardController extends Controller
      */
     private function getCardsData(): array
     {
-        return [];
+        $projectCount = Project::count();
+        $errorCount = Error::count();
+        $errorCount24 = Error::whereBetween('timestamp', [now()->subDays(1), now()])->count();
+
+        return [
+            'projectCount' => $projectCount,
+            'errorCount' => $errorCount,
+            'error24' => [
+                'count' => $errorCount24,
+                'percentage' => $this->calculatePercentage($errorCount24, $errorCount),
+            ]
+        ];
     }
 
     /**
@@ -79,5 +92,22 @@ class DashboardController extends Controller
         }
 
         return $result;
+    }
+
+    /**
+     * Calculates the percentage of two numbers
+     *
+     * @param int $number
+     * @param int $total
+     *
+     * @return int
+     */
+    private function calculatePercentage($number, $total): int
+    {
+        if ($total === 0) {
+            return 0;
+        }
+
+        return round(($number / $total) * 100);
     }
 }
