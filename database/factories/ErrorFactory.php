@@ -25,7 +25,7 @@ class ErrorFactory extends Factory
             'line' => fake()->numberBetween(1, 500),
             'status' => fake()->numberBetween(0, 2),
             'assigned_to' => null,
-            'timestamp' => now(),
+            'timestamp' => fake()->dateTimeBetween('-1 week', 'now'),
             'viewed_at' => null,
         ];
     }
