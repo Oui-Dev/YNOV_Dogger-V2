@@ -167,8 +167,6 @@
                     <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
                         Dogger is a one-stop shop for all your error logging needs. No matter how large or small your
                         team, we have a plan that will fit your needs.
-                        <!-- We have plans for every use case. Whether you're a solo developer or a large enterprise, we've got
-                        you covered. -->
                     </p>
                     <div
                         class="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
