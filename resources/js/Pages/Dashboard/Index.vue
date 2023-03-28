@@ -26,9 +26,9 @@ watch(selectedProject, (project) => {
 });
 
 const statsCardsData = ref([
-    { title: "Total projects", value: ""+props.cardsData.projectCount, icon: RectangleStackIcon, iconBg: "bg-blue-500", clickable: true, path: "dashboard/projects" },
-    { title: "Total errors", value: ""+props.cardsData.errorCount, icon: ExclamationTriangleIcon, iconBg: "bg-red-500", clickable: true, path: "dashboard/errors" },
-    { title: "24h Error count", value: ""+props.cardsData.error24.count, percentage: props.cardsData.error24.percentage+"%", icon: ChartBarIcon, clickable: true, path: "dashboard/errors" },
+    { title: "Total projects", value: props.cardsData.projectCount, icon: RectangleStackIcon, iconBg: "bg-blue-500", clickable: true, path: "dashboard/projects" },
+    { title: "Total errors", value: props.cardsData.errorCount, icon: ExclamationTriangleIcon, iconBg: "bg-red-500", clickable: true, path: "dashboard/errors" },
+    { title: "24h Error count", value: props.cardsData.error24.count, percentage: props.cardsData.error24.percentage, icon: ChartBarIcon, clickable: true, path: "dashboard/errors" },
 ]);
 </script>
 

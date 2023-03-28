@@ -41,7 +41,7 @@ class DashboardController extends Controller
             'errorCount' => $errorCount,
             'error24' => [
                 'count' => $errorCount24,
-                'percentage' => $this->calculatePercentage($errorCount24, $errorCount),
+                'percentage' => '+' . $this->calculatePercentage($errorCount24, ($errorCount - $errorCount24)),
             ]
         ];
     }
@@ -92,22 +92,5 @@ class DashboardController extends Controller
         }
 
         return $result;
-    }
-
-    /**
-     * Calculates the percentage of two numbers
-     *
-     * @param int $number
-     * @param int $total
-     *
-     * @return int
-     */
-    private function calculatePercentage($number, $total): int
-    {
-        if ($total === 0) {
-            return 0;
-        }
-
-        return round(($number / $total) * 100);
     }
 }

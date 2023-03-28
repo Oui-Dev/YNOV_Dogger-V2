@@ -41,4 +41,22 @@ trait StatsTrait {
 
         return $array;
     }
+
+
+    /**
+     * Calculates the percentage of two numbers
+     *
+     * @param int $number
+     * @param int $total
+     *
+     * @return ?string
+     */
+    public function calculatePercentage($number, $total): ?string
+    {
+        if ($total === 0) {
+            return null;
+        }
+
+        return round(($number / $total) * 100) . '%';
+    }
 }
