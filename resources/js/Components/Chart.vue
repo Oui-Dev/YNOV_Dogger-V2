@@ -37,7 +37,7 @@ const data = computed(() => ({
 
 const options = {
     scales: {
-        y: { type: 'linear', grace: '5%' },
+        y: { type: 'linear', grace: '5%', beginAtZero: true },
         x: { type: 'category' },
     },
 };
@@ -49,6 +49,6 @@ const options = {
         ref="chartRef"
         :data="data"
         :options="options"
-        class="py-6 sm:px-6 px-2"
+        class="py-3"
     />
 </template>

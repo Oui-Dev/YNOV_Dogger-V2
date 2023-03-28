@@ -38,11 +38,26 @@ const statsCardsData = ref([
             <StatsCard v-for="(card, index) in statsCardsData" :key="index" v-bind="card" />
         </div>
         <div id="select" class="mt-8">
-            <select v-model="selectedProject" class="border rounded-md">
+            <select v-model="selectedProject">
                 <option value="All">All</option>
                 <option v-for="chartData in props.chartData.projectErrors" :key="chartData" :value="chartData">{{ chartData.project }}</option>
             </select>
         </div>
-        <Chart :chartData="chartDataFormated" />
+        <Chart :chartData="chartDataFormated" class="mt-2 lg:mt-6" />
     </DefaultLayout>
 </template>
+
+<style lang="scss" scoped>
+div#select {
+    @apply capitalize py-1 px-2 border border-gray-300 rounded-lg shadow-sm w-fit bg-gray-50 mx-auto;
+
+    @screen md {
+        @apply mx-0;
+    }
+
+    select {
+        @apply bg-transparent;
+        max-width: 300px;
+    }
+}
+</style>

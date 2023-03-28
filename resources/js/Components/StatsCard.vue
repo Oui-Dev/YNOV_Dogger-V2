@@ -35,7 +35,6 @@ const props = defineProps({
     }
 })
 
-const isNegative = computed(() => props.percentage < 0);
 const bgIconClass = computed(() => {
     return `flex justify-center items-center ${props.iconBg ?? 'bg-dogger-orange-500'} p-2 rounded-full w-10 h-10 text-white text-xl`;
 });
@@ -50,7 +49,7 @@ const bgIconClass = computed(() => {
                     <dd>
                         <div class="text-lg font-medium text-gray-900">
                             {{ value }}
-                            <span v-if="percentage" :class="[isNegative ? 'text-red-500' : 'text-green-500', 'ml-2 text-sm']">
+                            <span v-if="percentage" class="text-red-500 ml-2 text-sm">
                                 {{ percentage }}
                             </span>
                         </div>
