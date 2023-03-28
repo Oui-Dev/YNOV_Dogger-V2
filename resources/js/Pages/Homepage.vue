@@ -28,7 +28,7 @@
                                     class="rounded-md bg-dogger-orange-400 px-8 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-dogger-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                     Sign in
                                 </Link>
-                                <a href="#feature" class="text-sm font-semibold leading-6 text-gray-900">Learn more 
+                                <a href="#feature" class="text-sm font-semibold leading-6 text-gray-900">Learn more
                                     <span aria-hidden="true">→</span>
                                 </a>
                             </div>
@@ -90,7 +90,7 @@
                         The error logger you need for your app
                     </p>
                     <p class="mt-6 text-lg leading-8 text-gray-600">
-                        You'll not anymore log your errors by yourself, Dogger will make it for you 
+                        You'll not anymore log your errors by yourself, Dogger will make it for you
                     </p>
                 </div>
                 <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -165,7 +165,10 @@
                         </p>
                     </div>
                     <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-                        Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.
+                        Dogger is a one-stop shop for all your error logging needs. No matter how large or small your
+                        team, we have a plan that will fit your needs.
+                        <!-- We have plans for every use case. Whether you're a solo developer or a large enterprise, we've got
+                        you covered. -->
                     </p>
                     <div
                         class="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -194,7 +197,7 @@
                                 </ul>
                             </div>
                             <a :href="tier.href" :aria-describedby="tier.id" :class="[tier.mostPopular ? 'bg-dogger-orange-400 text-white shadow-sm hover:bg-dogger-orange-500' : 'text-dogger-orange-400 ring-1 ring-inset ring-orange-400 hover:ring-orange-500', 'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600']">
-                                Buy plan
+                               {{ tier.id === 'tier-free' ? 'Get started for free' : 'Buy plan' }}
                             </a>
                         </div>
                     </div>
@@ -257,12 +260,17 @@ const features = [
 ]
 const tiers = [
     {
-        name: 'Freelancer',
-        id: 'tier-freelancer',
-        href: '#',
-        priceMonthly: '$24',
-        description: 'The essentials to provide your best work for clients.',
-        features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
+        name: 'Free',
+        id: 'tier-free',
+        href: 'https://github.com/Oui-Dev/Dogger-V2/',
+        priceMonthly: '$0',
+        description: 'Self-hosted, open-source, and free forever.',
+        features: [
+            'Self-hosted',
+            'Unlimited projects',
+            'Unlimited errors',
+            'Unlimited users'
+        ],
         mostPopular: false,
     },
     {
@@ -270,13 +278,12 @@ const tiers = [
         id: 'tier-startup',
         href: '#',
         priceMonthly: '$32',
-        description: 'A plan that scales with your rapidly growing business.',
+        description: 'For small teams and startups.',
         features: [
-            '25 products',
-            'Up to 10,000 subscribers',
-            'Advanced analytics',
-            '24-hour support response time',
-            'Marketing automations',
+            'Unlimited projects',
+            'Unlimited errors',
+            '10 users',
+            'Email notifications',
         ],
         mostPopular: true,
     },
@@ -285,13 +292,13 @@ const tiers = [
         id: 'tier-enterprise',
         href: '#',
         priceMonthly: '$48',
-        description: 'Dedicated support and infrastructure for your company.',
+        description: 'For large teams and enterprises.',
         features: [
-            'Unlimited products',
-            'Unlimited subscribers',
-            'Advanced analytics',
-            '1-hour, dedicated support response time',
-            'Marketing automations',
+            'Unlimited projects',
+            'Unlimited errors',
+            'Unlimited users',
+            'Email notifications',
+            'Priority support'
         ],
         mostPopular: false,
     },
