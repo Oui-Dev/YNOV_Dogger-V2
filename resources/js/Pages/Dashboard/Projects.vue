@@ -47,6 +47,9 @@ function changeModalState(modal, state = true, project = null) {
     if(project) {
         modalProjectId.value = project.id;
         projectForm.name = project.name;
+    } else {
+        modalProjectId.value = null;
+        projectForm.reset();
     }
 }
 
