@@ -2,7 +2,7 @@
     <div class="bg-white">
         <main class="isolate">
             <!-- Hero section -->
-            <div class="relative pt-14">
+            <div class="relative pt-4 md:pt-8">
                 <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
                     <svg class="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
                         viewBox="0 0 1155 678">
@@ -17,7 +17,7 @@
                         </defs>
                     </svg>
                 </div>
-                <div class="py-24 sm:py-32">
+                <div class="py-20 md:py-24 lg:py-32">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="mx-auto max-w-2xl text-center">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Dogger</h1>
