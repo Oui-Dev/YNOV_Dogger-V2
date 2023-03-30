@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewUserEmail;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class UsersController extends Controller
@@ -28,7 +30,7 @@ class UsersController extends Controller
             'email' => ['required','email:rfc,dns,spoof','max:255', Rule::unique('users')],
         ]);
 
-        User::create([
+        $user = User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
@@ -36,7 +38,7 @@ class UsersController extends Controller
             'password' => $password,
         ]);
 
-        // TODO: Send email to user with credentials
+        Mail::to($user["email"])->send(new NewUserEmail($user, $password));
 
         return redirect()->back()->with('toast', [
             'type' => 'success',
