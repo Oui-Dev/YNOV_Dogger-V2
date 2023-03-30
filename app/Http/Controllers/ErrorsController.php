@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Mail\ErrorAssignEmail;
 use App\Traits\ErrorTrait;
 use App\Models\Error;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ErrorsController extends Controller
@@ -66,9 +68,16 @@ class ErrorsController extends Controller
 
         $data = request()->validate([
             'status' => ['required', 'integer', 'min:0', 'max:3'],
-            'assigned_to' => ['nullable','integer'],
+            'assigned_to' => ['nullable','integer', Rule::exists('users', 'id')->where(function ($query) use ($error) {
+                $query->where('organization_id', $error->project->organization->id);
+            })],
         ]);
 
+        if($data['assigned_to'] !== $error->assigned_to) {
+            $user = User::where('id', $data['assigned_to'])->first();
+            Mail::to($user["email"])->send(new ErrorAssignEmail($error->project->name, $error->message));
+        }
+        
         $error->status = $data['status'];
         $error->assigned_to = $data['assigned_to'];
         $error->save();
