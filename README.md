@@ -34,12 +34,34 @@ You may also see any lint errors in the console.
 
 Open [http://localhost:8000](http://localhost:8000) to view it in your browser.
 
-## How to connect Dogger to your projects
+## How to connect Dogger to your projects with NPM package
+
+### `npm install dogger-npm`
+
+```js
+import { dogger_catch }  from 'dogger-npm';
+
+try {
+  // Your code here
+} catch (error) {
+  dogger_catch(yourProjectKey, error)
+}
+```
+
+or
+
+```js
+import { dogger }  from 'dogger-npm';
+
+dogger(yourProjectKey, "message", "code", "path", "line", "timestamp")
+```
+
+## How to connect Dogger to your projects without NPM package
 
 Axios example :
 
 ```js
-axios.post("http://localhost:8000/api/errors/new", {
+axios.post("https://dogger.host/api/errors/new", {
   message: "Error message", // optional
   code: 500, // optional
   path: "/", // optional
