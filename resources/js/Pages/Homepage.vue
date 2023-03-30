@@ -36,7 +36,7 @@
                         <div class="mt-16 flow-root sm:mt-24">
                             <div
                                 class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                                <img src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+                                <img src="/images/main_illustration.png"
                                     alt="App screenshot" width="2432" height="1442"
                                     class="rounded-md shadow-2xl ring-1 ring-gray-900/10" />
                             </div>
@@ -62,23 +62,17 @@
 
             <!-- Logo cloud -->
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div
-                    class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor"
-                        width="158" height="48" />
+                        src="/images/partner_safearea.png" alt="Safearea" width="158" height="48" />
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158"
-                        height="48" />
+                        src="/images/partner_gridv3.png" alt="Gridv3" width="158" height="48" />
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" width="158"
-                        height="48" />
+                        src="/images/partner_google.png" alt="Google" width="158" height="48" />
                     <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" width="158"
-                        height="48" />
+                        src="/images/partner_wishexpress.png" alt="WishExpress" width="158" height="48" />
                     <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158"
-                        height="48" />
+                        src="/images/partner_radiovue.png" alt="Radio vue" width="158" height="48" />
                 </div>
             </div>
 
