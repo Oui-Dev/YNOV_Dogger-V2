@@ -73,7 +73,7 @@ class ErrorsController extends Controller
             })],
         ]);
 
-        if($data['assigned_to'] !== $error->assigned_to) {
+        if($data['assigned_to'] && $data['assigned_to'] !== $error->assigned_to) {
             $user = User::where('id', $data['assigned_to'])->first();
             Mail::to($user["email"])->send(new ErrorAssignEmail($error->project->name, $error->message));
         }
