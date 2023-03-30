@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Project;
 use App\Models\Error;
-use App\Models\User;
 use App\Traits\StatsTrait;
 
 class DashboardController extends Controller
@@ -16,7 +15,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $cardsData = $this->getCardsData();
+        $cardsData = $this->getCardsData($user->organization);
         $chartData = $this->getChartData($user->organization->id);
 
         return Inertia::render('Dashboard/Index', [
@@ -28,13 +27,16 @@ class DashboardController extends Controller
     /**
      *  Returns the data for the stat cards
      *
+     * @param \App\Models\Organization $organization
      * @return array
      */
-    private function getCardsData(): array
+    private function getCardsData($organization): array
     {
-        $projectCount = Project::count();
-        $errorCount = Error::count();
-        $errorCount24 = Error::whereBetween('timestamp', [now()->subDays(1), now()])->count();
+        $projectCount = $organization->projects()->count();
+        $errorCount = $organization->projects()->withCount('errors')->get()->sum('errors_count');
+        $errorCount24 = $organization->projects()->withCount(['errors' => function ($query) {
+            $query->whereBetween('timestamp', [now()->subDays(1), now()]);
+        }])->get()->sum('errors_count');
 
         return [
             'projectCount' => $projectCount,
