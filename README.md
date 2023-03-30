@@ -4,6 +4,8 @@ School project with [Vue 3](https://vuejs.org/), [Laravel 10](https://laravel.co
 
 ![Dogger logo](/public/images/logo_full.png)
 
+You can access to the project here [https://dogger.host](https://dogger.host).
+
 ## How to run the project
 
 First you need to install all depedancies.
