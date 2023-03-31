@@ -61,7 +61,7 @@ class ProfileController extends Controller
     public function delete() {
         $user = auth()->user();
 
-        if($user->projects()->count() > 0) {
+        if($user->organization->projects()->count() > 0) {
             return redirect()->back()->with('toast', [
                 'type' => 'error',
                 'message' => 'You can\'t delete your account because you have projects.',
